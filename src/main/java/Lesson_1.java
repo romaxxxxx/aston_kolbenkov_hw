@@ -3,7 +3,7 @@ import java.util.stream.Stream;
 
 import static java.lang.System.out;
 
-public class Ahw1 {
+public class Lesson_1 {
     public static void main(String[] args) {
         printThreeWords();
         checkSumSign();
