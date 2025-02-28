@@ -4,6 +4,6 @@ public class Park {
     class attraction {
         String name;
         String workingHours;
-        float cost;
+        Long cost;
     }
 }
