@@ -1,17 +1,17 @@
 package Lesson_3;
 
 class Bowl {
-    public int foodVolume;
+    private static int foodVolume;
 
-    public int getFoodVolume() {
+    static int getFoodVolume() {
         return foodVolume;
     }
 
-    void addFood(int foodVolume) {
-        this.foodVolume = foodVolume;
-    }
-    public int degressFoodVolume(Cat cat) {
-        return this.foodVolume -= cat.getFoodAmountSatiety();
+    static void addFood(int foodVolume) {
+        Bowl.foodVolume = foodVolume;
     }
 
+    static void degressFoodVolume(Cat cat) {
+        Bowl.foodVolume -= cat.getFoodAmountSatiety();
+    }
 }

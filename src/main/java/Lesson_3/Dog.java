@@ -1,6 +1,6 @@
 package Lesson_3;
 class Dog extends Animal {
-    int dogCount;
+    private int dogCount;
 
     public Dog(String dogName, int foodAmountSatiety) {
         super(dogName, 500, 10);

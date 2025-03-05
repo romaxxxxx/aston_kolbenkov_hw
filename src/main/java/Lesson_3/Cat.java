@@ -1,9 +1,9 @@
 package Lesson_3;
 
-class Cat extends Animal implements eatableFromBowl {
+class Cat extends Animal implements eatableFromBowl{
     static int catCount;
-    int foodAmountSatiety;
-    boolean satiety = false;
+    private final int foodAmountSatiety;
+    private boolean satiety = false;
 
     public Cat(String catName, int foodAmountSatiety) {
         super(catName, 200, 0);
@@ -17,14 +17,18 @@ class Cat extends Animal implements eatableFromBowl {
     }
 
     @Override
-    public void eatFromBowl(Bowl bowl) {
-        if (bowl.getFoodVolume() > this.foodAmountSatiety) {
-            bowl.degressFoodVolume(this);
+    public void eatFromBowl() {
+        if (Bowl.getFoodVolume() > this.foodAmountSatiety) {
+            Bowl.degressFoodVolume(this);
             this.satiety = true;
         }
     }
 
     public int getFoodAmountSatiety() {
         return foodAmountSatiety;
+    }
+
+    public boolean isSatiety() {
+        return satiety;
     }
 }
