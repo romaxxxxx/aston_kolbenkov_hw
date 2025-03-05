@@ -14,10 +14,10 @@ abstract class Animal {
     }
 
     void run(int obstacleLength) {
-        System.out.printf("%s пробежал %d метров%n", name, obstacleLength);
+        System.out.printf("%s пробежал %d метров/n", name, obstacleLength);
     }
 
     void swim(int obstacleLength) {
-        System.out.printf("%s пробежал %d метров%n", name, obstacleLength);
+        System.out.printf("%s пробежал %d метров/n", name, obstacleLength);
     }
 }
