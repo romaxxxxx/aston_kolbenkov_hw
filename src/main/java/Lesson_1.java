@@ -28,7 +28,7 @@ public class Lesson_1 {
     static void checkSumSign() {
         int a = -10;
         int b = 10;
-        out.println((a + b >= 0) ? "Сумму положительная" : "Сумма отрицательная");
+        out.println((a + b >= 0) ? "Сумма положительная" : "Сумма отрицательная");
     }
 
     static void printColor() {
