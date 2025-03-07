@@ -32,10 +32,10 @@ public class Lesson_1 {
     }
 
     static void printColor() {
-        int value = 101;
+        int value = 100;
         if (value <= 0) {
             out.println("красный");
-        } else if (value > 0 & value <= 100) {
+        } else if (value <= 100) {
             out.println("желтый");
         } else {
             out.println("зеленый");
