@@ -38,6 +38,10 @@ public class Product {
                 "Тайвань", 30000, false);
         productsArray[4] = new Product("Starship ", "01.01.0005", "SpaceX",
                 "СШП", 999999999999999999L, true);
+
+        for (Product product : productsArray) {
+            product.printToConsoleProductInfo();
+        }
     }
 
     @Override
