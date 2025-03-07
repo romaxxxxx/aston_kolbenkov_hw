@@ -1,10 +1,14 @@
 package Lesson_3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static Lesson_3.Satiety.голодный;
 import static Lesson_3.Satiety.сытый;
 
 public class CatFeeding {
     static int foodVolume = 61;
+
     public static void main(String[] args) {
         Bowl.addFood(foodVolume);
         Cat[] cats = new Cat[4];

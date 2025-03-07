@@ -1,12 +1,13 @@
 package Lesson_3;
 
-class Cat extends Animal implements eatableFromBowl{
-    private static int catCount;
+class Cat extends Animal implements eatableFromBowl {
+    private static final int RUNNING_DISTANCE_CAPACITY = 200;
+    private static int catCount = 0;
     private final int foodAmountSatiety;
     private boolean satiety = false;
 
     public Cat(String catName, int foodAmountSatiety) {
-        super(catName, 200, 0);
+        super(catName);
         this.foodAmountSatiety = foodAmountSatiety;
         catCount++;
     }
