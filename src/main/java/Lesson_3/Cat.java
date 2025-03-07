@@ -1,7 +1,7 @@
 package Lesson_3;
 
 class Cat extends Animal implements eatableFromBowl{
-    static int catCount;
+    private static int catCount;
     private final int foodAmountSatiety;
     private boolean satiety = false;
 
@@ -12,7 +12,7 @@ class Cat extends Animal implements eatableFromBowl{
     }
 
     @Override
-    void swim(int obstacleLength) {
+    public void swim(int obstacleLength) {
         System.out.println("Кот не умеет плавать");
     }
 

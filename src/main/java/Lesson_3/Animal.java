@@ -1,10 +1,10 @@
 package Lesson_3;
 
 abstract class Animal {
-    static int animalCount;
-    String name;
-    int runningDistanceCapacity;
-    int swimmingDistanceCapacity;
+    private static int animalCount;
+    private String name;
+    private int runningDistanceCapacity;
+    private int swimmingDistanceCapacity;
 
     public Animal(String name, int runningDistanceCapacity, int swimmingDistanceCapacity) {
         animalCount++;
@@ -19,5 +19,9 @@ abstract class Animal {
 
     void swim(int obstacleLength) {
         System.out.printf("%s пробежал %d метров/n", name, obstacleLength);
+    }
+
+    public String getName() {
+        return name;
     }
 }

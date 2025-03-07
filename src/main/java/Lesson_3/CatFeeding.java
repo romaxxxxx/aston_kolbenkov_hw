@@ -7,14 +7,16 @@ public class CatFeeding {
     static int foodVolume = 61;
     public static void main(String[] args) {
         Bowl.addFood(foodVolume);
-        Cat[] cats = new Cat[3];
+        Cat[] cats = new Cat[4];
         cats[0] = new Cat("Васька", 20);
         cats[1] = new Cat("Матроскин", 40);
         cats[2] = new Cat("Тотошка", 1);
+        cats[3] = new Cat("Платошка", 10);
+
         for (Cat cat : cats) {
             cat.eatFromBowl();
             Satiety catSatiety = !cat.isSatiety() ? голодный : сытый;
-            System.out.printf("Кот %s сегодня %s\n", cat.name, catSatiety);
+            System.out.printf("Кот %s сегодня %s\n", cat.getName(), catSatiety);
         }
     }
 }
