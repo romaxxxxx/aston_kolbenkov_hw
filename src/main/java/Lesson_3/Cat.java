@@ -31,4 +31,8 @@ class Cat extends Animal implements eatableFromBowl{
     public boolean isSatiety() {
         return satiety;
     }
+
+    public static int getCatCount() {
+        return catCount;
+    }
 }

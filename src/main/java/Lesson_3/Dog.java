@@ -6,4 +6,8 @@ class Dog extends Animal {
         super(dogName, 500, 10);
         this.dogCount++;
     }
+
+    public int getDogCount() {
+        return dogCount;
+    }
 }
