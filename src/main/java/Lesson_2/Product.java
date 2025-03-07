@@ -20,11 +20,10 @@ public class Product {
         this.countryOfOrigin = countryOfOrigin;
         this.price = price;
         this.statusOfTheBookingByTheBuyer = statusOfTheBookingByTheBuyer;
-        printToConsoleProductInfo();
     }
 
     public void printToConsoleProductInfo() {
-        System.out.println(this.toString());
+        System.out.println(this);
     }
 
     public static void main(String[] args) {
@@ -45,7 +44,7 @@ public class Product {
     public String toString() {
         return format("Название: %s, Дата производства: %S, Производитель: %s, Страна происхождения: %s, Цена: %s," +
                         "Состояние бронирования покупателем: %S",
-                this.name, this.productionDate, this.manufacturer, this.countryOfOrigin, this.price, this.price,
+                this.name, this.productionDate, this.manufacturer, this.countryOfOrigin, this.price,
                 this.statusOfTheBookingByTheBuyer);
     }
 }
