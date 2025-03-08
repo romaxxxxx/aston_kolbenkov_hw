@@ -18,7 +18,7 @@ public class Circle extends Shapes implements CalcPerimeter {
     }
     @Override
     public void printInfo(){
-        System.out.printf("Площадь круга: %4.3f, Периметр круга: %4.3f, Цвет круга: %s, Цвет границы: %s\n",
-                circleArea(r), circlePerimeter(r), super.getFillColor(), super.getBorderColor());
+        System.out.printf("Площадь круга: %4.3f, Периметр круга: %4.3f, Цвет круга: %s, Цвет границы круга: %s\n",
+                circleArea(this.r), circlePerimeter(this.r), super.getFillColor(), super.getBorderColor());
     }
 }

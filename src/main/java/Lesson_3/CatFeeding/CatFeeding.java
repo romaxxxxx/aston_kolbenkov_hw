@@ -18,7 +18,6 @@ public class CatFeeding {
             cat.eatFromBowl();
             Satiety catSatiety = !cat.isSatiety() ? голодный : сытый;
             System.out.printf("Кот %s сегодня %s\n", cat.getName(), catSatiety);
-
         }
     }
 }

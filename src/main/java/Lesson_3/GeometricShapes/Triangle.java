@@ -21,10 +21,9 @@ public class Triangle extends Shapes implements CalcPerimeter {
         return CalcPerimeter.super.trianglePerimeter(a, b, c);
     }
 
-
     @Override
     public void printInfo() {
-        System.out.printf("Площадь треугольника: %4.3f, Периметр треугольника: %4.3f, Цвет треугольника: %s, Цвет треугольника: %s\n",
+        System.out.printf("Площадь треугольника: %4.3f, Периметр треугольника: %4.3f, Цвет треугольника: %s, Цвет границы треугольника: %s\n",
                 triangleArea(this.a, this.h), trianglePerimeter(this.a, this.b, this.c), super.getFillColor(),
                 super.getBorderColor());
     }
