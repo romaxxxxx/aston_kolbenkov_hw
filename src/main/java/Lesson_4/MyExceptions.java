@@ -2,7 +2,7 @@ package Lesson_4;
 
 import static java.lang.String.format;
 
-public class ExceptionsHW {
+public class MyExceptions {
     public static void main(String[] args) {
         try {
             arrException(new String[][]{{"4", "4", "k", "4"}, {"4", "4", "4", "4"}, {"4", "4", "4", "4"},
@@ -10,7 +10,7 @@ public class ExceptionsHW {
         } catch (MyArraySizeException s) {
             s.printStackTrace();
         } catch (MyArrayDataException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -26,7 +26,8 @@ public class ExceptionsHW {
                 try {
                     toInt = Integer.parseInt(arr[i][j]);
                 } catch (NumberFormatException e){
-                    throw new MyArrayDataException(format("Ошибка парсинга: i = %d, j = %d",i,j));
+                    throw new MyArrayDataException(format("Ошибка парсинга на элементе массива: строка = %d," +
+                            " столбец = %d",i,j));
                 }
                 sum += toInt;
             }
