@@ -1,4 +1,4 @@
-package Lesson_3;
+package Lesson_3.CatFeeding;
 
 class Cat extends Animal implements eatableFromBowl {
     private static final int RUNNING_DISTANCE_CAPACITY = 200;

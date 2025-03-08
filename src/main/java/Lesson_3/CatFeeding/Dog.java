@@ -1,4 +1,4 @@
-package Lesson_3;
+package Lesson_3.CatFeeding;
 
 class Dog extends Animal {
 

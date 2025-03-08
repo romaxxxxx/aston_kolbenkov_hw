@@ -1,10 +1,7 @@
-package Lesson_3;
+package Lesson_3.CatFeeding;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static Lesson_3.Satiety.голодный;
-import static Lesson_3.Satiety.сытый;
+import static Lesson_3.CatFeeding.Satiety.голодный;
+import static Lesson_3.CatFeeding.Satiety.сытый;
 
 public class CatFeeding {
     static int foodVolume = 61;
