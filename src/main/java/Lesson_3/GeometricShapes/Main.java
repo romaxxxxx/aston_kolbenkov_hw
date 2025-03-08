@@ -3,8 +3,6 @@ package Lesson_3.GeometricShapes;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.String.format;
-
 public class Main {
     public static void main(String[] args) {
         Circle circle = new Circle("Синий", "Красный", 5);
