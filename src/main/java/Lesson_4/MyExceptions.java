@@ -7,10 +7,8 @@ public class MyExceptions {
         try {
             arrException(new String[][]{{"4", "4", "k", "4"}, {"4", "4", "4", "4"}, {"4", "4", "4", "4"},
                     {"4", "4", "4", "4"}});
-        } catch (MyArraySizeException s) {
+        } catch (MyArraySizeException | MyArrayDataException s) {
             s.printStackTrace();
-        } catch (MyArrayDataException e) {
-            e.printStackTrace();
         }
     }
 
@@ -25,13 +23,13 @@ public class MyExceptions {
             for (int j = 0; j < arr.length; j++) {
                 try {
                     toInt = Integer.parseInt(arr[i][j]);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     throw new MyArrayDataException(format("Ошибка парсинга на элементе массива: строка = %d," +
-                            " столбец = %d",i,j));
+                            " столбец = %d", i, j));
                 }
                 sum += toInt;
             }
         }
-        System.out.println(sum);
+        System.out.println(format("Сумма элементов массива - %d",sum));
     }
 }
