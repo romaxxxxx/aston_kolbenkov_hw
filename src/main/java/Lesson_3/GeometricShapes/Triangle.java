@@ -1,8 +1,8 @@
 package Lesson_3.GeometricShapes;
 
 public class Triangle extends Shapes implements CalcPerimeter {
-    double a,b,c;
-    double h;
+    private double a,b,c;
+    private double h;
     public Triangle(String fillColor, String borderColor, double a, double b, double c, double h) {
         super(fillColor, borderColor);
         this.a = a;

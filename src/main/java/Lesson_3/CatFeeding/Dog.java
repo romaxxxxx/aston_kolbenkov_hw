@@ -1,16 +1,14 @@
 package Lesson_3.CatFeeding;
 
 class Dog extends Animal {
-
-    private final static int SWIMMING_DISTANCE_CAPACITY = 10;
-    private final static int RUNNING_DISTANCE_CAPACITY = 500;
     private static int dogCount = 0;
+
     public Dog(String dogName) {
-        super(dogName);
+        super(dogName, 10, 500);
         dogCount++;
     }
 
-    public static int getDogCount() {
-        return dogCount;
+    public static void DogCountInfo() {
+        System.out.printf("Всего создано собак: %d\n", dogCount);
     }
 }

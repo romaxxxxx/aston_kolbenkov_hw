@@ -1,7 +1,7 @@
 package Lesson_3.GeometricShapes;
 
 public class Circle extends Shapes implements CalcPerimeter {
-    double r;
+    private double r;
     public Circle(String fillColor, String borderColor, double r) {
         super(fillColor, borderColor);
         this.r = r;

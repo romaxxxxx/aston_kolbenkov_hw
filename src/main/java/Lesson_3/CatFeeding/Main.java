@@ -1,9 +1,6 @@
 package Lesson_3.CatFeeding;
 
-import static Lesson_3.CatFeeding.Satiety.голодный;
-import static Lesson_3.CatFeeding.Satiety.сытый;
-
-public class CatFeeding {
+public class Main {
     static int foodVolume = 61;
 
     public static void main(String[] args) {
@@ -16,8 +13,20 @@ public class CatFeeding {
 
         for (Cat cat : cats) {
             cat.eatFromBowl();
-            Satiety catSatiety = !cat.isSatiety() ? голодный : сытый;
-            System.out.printf("Кот %s сегодня %s\n", cat.getName(), catSatiety);
+            cat.catSatietyInfo();
         }
+
+        new Dog("Шарик")
+                .run(499);
+        new Dog("Тузик")
+                .swim(9);
+        new Cat("Сима", 5)
+                .swim(5);
+        new Cat("Матроскин", 3)
+                .run(201);
+
+        Animal.AnimalCountInfo();
+        Cat.catCountInfo();
+        Dog.DogCountInfo();
     }
 }
