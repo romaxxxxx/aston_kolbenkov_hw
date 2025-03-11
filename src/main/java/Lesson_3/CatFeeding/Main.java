@@ -1,5 +1,8 @@
 package Lesson_3.CatFeeding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     static int foodVolume = 61;
 
@@ -16,14 +19,16 @@ public class Main {
             cat.catSatietyInfo();
         }
 
-        new Dog("Шарик")
-                .run(499);
-        new Dog("Тузик")
-                .swim(9);
-        new Cat("Сима", 5)
-                .swim(5);
-        new Cat("Матроскин", 3)
-                .run(201);
+        List<Animal> animals = new ArrayList<>();
+        animals.add(new Dog("Шарик"));
+        animals.add(new Cat("Матроскин", 3));
+
+        for(Animal animal : animals){
+            animal.swim(9);
+            animal.run(100);
+            animal.swim(11);
+            animal.run(501);
+        }
 
         Animal.AnimalCountInfo();
         Cat.catCountInfo();
