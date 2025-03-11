@@ -1,4 +1,4 @@
-package Lesson_3;
+package Lesson_3.CatFeeding;
 
 class Bowl {
     private static int foodVolume;
@@ -8,10 +8,11 @@ class Bowl {
     }
 
     public static void addFood(int foodVolume) {
-        Bowl.foodVolume = foodVolume;
+        Bowl.foodVolume += foodVolume;
     }
 
     public static void degressFoodVolume(Cat cat) {
-        Bowl.foodVolume -= cat.getFoodAmountSatiety();
+        if (foodVolume > cat.getFoodAmountSatiety())
+            Bowl.foodVolume -= cat.getFoodAmountSatiety();
     }
 }
