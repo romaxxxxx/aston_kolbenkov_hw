@@ -12,7 +12,7 @@ class Bowl {
     }
 
     public static void degressFoodVolume(Cat cat) {
-        if (foodVolume > cat.getFoodAmountSatiety())
+        if (foodVolume >= cat.getFoodAmountSatiety())
             Bowl.foodVolume -= cat.getFoodAmountSatiety();
     }
 }
