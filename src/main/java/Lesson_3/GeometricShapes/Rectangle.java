@@ -1,6 +1,6 @@
 package Lesson_3.GeometricShapes;
 
-public class Rectangle extends Shapes implements CalcPerimeter {
+public class Rectangle extends Shapes implements CalcuatableShapesChar {
     private double a, b;
 
     public Rectangle(String fillColor, String borderColor, double a, double b) {
@@ -11,13 +11,14 @@ public class Rectangle extends Shapes implements CalcPerimeter {
 
     @Override
     public double rectangleArea(double a, double b) {
-        return CalcPerimeter.super.rectangleArea(a, b);
+        return CalcuatableShapesChar.super.rectangleArea(a, b);
     }
 
     @Override
     public double rectanglePerimeter(double a, double b) {
-        return CalcPerimeter.super.rectanglePerimeter(a, b);
+        return CalcuatableShapesChar.super.rectanglePerimeter(a, b);
     }
+
     @Override
     public void printInfo() {
         System.out.printf("Площадь прямоугольника: %4.3f, Периметр прямоугольника: %4.3f, Цвет прямоугольника: %s, Цвет границы прямоугольника: %s\n",

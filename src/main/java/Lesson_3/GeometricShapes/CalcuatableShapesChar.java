@@ -1,6 +1,6 @@
 package Lesson_3.GeometricShapes;
 
-public interface CalcPerimeter {
+public interface CalcuatableShapesChar {
     default double circlePerimeter(double r) {
         return 2 * Math.PI * r;
     }
@@ -23,7 +23,7 @@ public interface CalcPerimeter {
     }
 
     default double rectangleArea(double a, double b) {
-        return (a + b) * 2;
+        return a * b;
     }
 
 }

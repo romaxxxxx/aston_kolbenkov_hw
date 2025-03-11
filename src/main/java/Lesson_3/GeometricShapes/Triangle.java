@@ -1,6 +1,6 @@
 package Lesson_3.GeometricShapes;
 
-public class Triangle extends Shapes implements CalcPerimeter {
+public class Triangle extends Shapes implements CalcuatableShapesChar {
     private double a,b,c;
     private double h;
     public Triangle(String fillColor, String borderColor, double a, double b, double c, double h) {
@@ -13,12 +13,12 @@ public class Triangle extends Shapes implements CalcPerimeter {
 
     @Override
     public double triangleArea(double a, double h) {
-        return CalcPerimeter.super.triangleArea(a, h);
+        return CalcuatableShapesChar.super.triangleArea(a, h);
     }
 
     @Override
     public double trianglePerimeter(double a, double b, double c) {
-        return CalcPerimeter.super.trianglePerimeter(a, b, c);
+        return CalcuatableShapesChar.super.trianglePerimeter(a, b, c);
     }
 
     @Override

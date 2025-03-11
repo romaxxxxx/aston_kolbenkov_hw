@@ -1,6 +1,6 @@
 package Lesson_3.GeometricShapes;
 
-public class Circle extends Shapes implements CalcPerimeter {
+public class Circle extends Shapes implements CalcuatableShapesChar {
     private double r;
     public Circle(String fillColor, String borderColor, double r) {
         super(fillColor, borderColor);
@@ -9,12 +9,12 @@ public class Circle extends Shapes implements CalcPerimeter {
 
     @Override
     public double circlePerimeter(double r) {
-        return CalcPerimeter.super.circlePerimeter(r);
+        return CalcuatableShapesChar.super.circlePerimeter(r);
     }
 
     @Override
     public double circleArea(double r) {
-        return CalcPerimeter.super.circleArea(r);
+        return CalcuatableShapesChar.super.circleArea(r);
     }
     @Override
     public void printInfo(){

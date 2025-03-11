@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    static int foodVolume = 61;
+    static int foodVolume = 30;
 
     public static void main(String[] args) {
         Bowl.addFood(foodVolume);

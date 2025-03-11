@@ -18,10 +18,8 @@ class Cat extends Animal implements eatableFromBowl {
 
     @Override
     public void eatFromBowl() {
-        if (Bowl.getFoodVolume() > this.foodAmountSatiety) {
             Bowl.degressFoodVolume(this);
             this.satiety = true;
-        }
     }
 
     public int getFoodAmountSatiety() {
