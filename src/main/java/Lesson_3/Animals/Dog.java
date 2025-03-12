@@ -1,4 +1,4 @@
-package Lesson_3.CatFeeding;
+package Lesson_3.Animals;
 
 class Dog extends Animal {
     private static int dogCount = 0;

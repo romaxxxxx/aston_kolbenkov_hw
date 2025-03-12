@@ -1,4 +1,4 @@
-package Lesson_3.CatFeeding;
+package Lesson_3.Animals;
 
 class Bowl {
     private static int foodVolume = 0;

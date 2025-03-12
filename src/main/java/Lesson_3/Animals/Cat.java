@@ -1,4 +1,4 @@
-package Lesson_3.CatFeeding;
+package Lesson_3.Animals;
 
 class Cat extends Animal implements eatableFromBowl {
     private static int catCount = 0;

@@ -1,4 +1,4 @@
-package Lesson_3.CatFeeding;
+package Lesson_3.Animals;
 
 abstract class Animal {
     private static int animalCount = 0;

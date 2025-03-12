@@ -1,4 +1,4 @@
-package Lesson_3.CatFeeding;
+package Lesson_3.Animals;
 
 import java.util.ArrayList;
 import java.util.List;
