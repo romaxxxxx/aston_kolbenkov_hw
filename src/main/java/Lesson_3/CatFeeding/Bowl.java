@@ -1,7 +1,7 @@
 package Lesson_3.CatFeeding;
 
 class Bowl {
-    private static int foodVolume;
+    private static int foodVolume = 0;
 
     public static int getFoodVolume() {
         return foodVolume;
