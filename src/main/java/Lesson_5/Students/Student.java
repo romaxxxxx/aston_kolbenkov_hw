@@ -4,10 +4,10 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Student {
-    String name;
-    String group;
-    int course;
-    Map<String, Integer> gradesBySubjects;
+    private String name;
+    private String group;
+    private int course;
+    private final Map<String, Integer> gradesBySubjects;
 
     public Student(String name, String group, int course, Map<String, Integer> gradesBySubjects) {
         this.name = name;
@@ -43,5 +43,9 @@ public class Student {
     public void upLevelCourse() {
         this.course++;
     }
-}
 
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+}

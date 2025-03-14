@@ -1,6 +1,7 @@
 package Lesson_5.Students;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,37 +9,30 @@ public class Main {
         studentsSet.add(new Student("Вася", "5", 5, Map.of("Химия", 2, "Физика", 3)));
         studentsSet.add(new Student("Петя", "4", 3, Map.of("Химия", 4, "Физика", 4)));
         studentsSet.add(new Student("Коля", "4", 3, Map.of("Химия", 3, "Физика", 4)));
-        studentsSet.add(new Student("Слава", "4", 3, Map.of("Химия", 5, "Физика", 5)));
+        studentsSet.add(new Student("Слава", "4", 4, Map.of("Химия", 5, "Физика", 5)));
 
-        studentsDelete(studentsSet);
+        removingStudents(studentsSet);
         studentsUpToLevel(studentsSet);
         printStudents(studentsSet, 4);
     }
 
-    static void studentsDelete(Set<Student> students) {
-        Set<Student> stForRemove = new HashSet<>();
-        for (Student student : students) {
-            if (student.avarageGrade() < 3)
-                stForRemove.add(student);
-        }
-        students.removeAll(stForRemove);
+    static void removingStudents(Set<Student> students) {
+        Set<Student> studentsForRemove =  students.stream()
+                .filter(s -> s.avarageGrade() < 3)
+                .collect(Collectors.toSet());
+        students.removeAll(studentsForRemove);
     }
 
     static void studentsUpToLevel(Set<Student> students) {
-        for (Student student : students) {
-            if (student.avarageGrade() >= 3) {
-                student.upLevelCourse();
-            }
-        }
+        students.stream()
+                .filter(s -> s.avarageGrade() >= 3)
+                .forEach(Student::upLevelCourse);
     }
 
     static void printStudents(Set<Student> students, int course) {
-        Set<String> studentsOnCourse = new HashSet<>();
-        for (Student student : students) {
-            if (student.getCourse() == course) {
-                studentsOnCourse.add(student.getName());
-            }
-        }
+        Set<Student> studentsOnCourse = students.stream()
+                .filter(s->s.getCourse()==course)
+                .collect(Collectors.toSet());
         System.out.printf("Студенты %d курса: %s", course, studentsOnCourse);
     }
 }
