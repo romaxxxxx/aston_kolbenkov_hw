@@ -5,7 +5,7 @@ import static java.lang.String.format;
 public class MyExceptions {
     public static void main(String[] args) {
         try {
-            arrException(new String[][]{{"4", "4", "k", "4"}, {"4", "4", "4", "4"}, {"4", "4", "4", "4"},
+            arrException(new String[][]{{"4", "4", "4", "4"}, {"4", "4", "4", "4"}, {"4", "4", "4", "4"},
                     {"4", "4", "4", "4"}});
         } catch (MyArraySizeException | MyArrayDataException s) {
             s.printStackTrace();
@@ -15,12 +15,12 @@ public class MyExceptions {
     static void arrException(String[][] arr) throws NumberFormatException, MyArraySizeException, MyArrayDataException {
         int sum = 0;
         int toInt = 0;
-        if (arr.length != 4 || arr[0].length != 4) {
+        if (arr.length != 4 || arr[0].length != 4 || arr[1].length != 4|| arr[2].length != 4|| arr[3].length != 4) {
             throw new MyArraySizeException("На вход подан массив недопустимой длины");
         }
 
         for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length; j++) {
+            for (int j = 0; j < arr[i].length; j++) {
                 try {
                     toInt = Integer.parseInt(arr[i][j]);
                 } catch (NumberFormatException e) {
