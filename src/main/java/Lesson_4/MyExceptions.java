@@ -4,19 +4,27 @@ import static java.lang.String.format;
 
 public class MyExceptions {
     public static void main(String[] args) {
+        int countStrings = 4;
+        int[] stringLengths = {4, 4, 4, 4};
         try {
-            arrException(new String[][]{{"4", "4", "4", "4"}, {"4", "4", "4", "4"}, {"4", "4", "4", "4"},
-                    {"4", "4", "4", "4"}});
+            arrException(countStrings, stringLengths,
+                    new String[][]{{"4", "4", "4", "4"}, {"4", "4", "4", "4"}, {"4", "4", "4", "4"},
+                            {"4", "4", "4", "4"}});
         } catch (MyArraySizeException | MyArrayDataException s) {
             s.printStackTrace();
         }
     }
 
-    static void arrException(String[][] arr) throws NumberFormatException, MyArraySizeException, MyArrayDataException {
+    static void arrException(int countStrings, int[] stringLengths, String[][] arr) throws NumberFormatException, MyArraySizeException, MyArrayDataException {
         int sum = 0;
         int toInt = 0;
-        if (arr.length != 4 || arr[0].length != 4 || arr[1].length != 4|| arr[2].length != 4|| arr[3].length != 4) {
-            throw new MyArraySizeException("На вход подан массив недопустимой длины");
+        if (arr.length != countStrings) {
+            throw new MyArraySizeException("На вход подан массив недопустимого размера");
+        }
+        for (int i = 0; i < countStrings; i++) {
+            if (arr[i].length != stringLengths[i]) {
+                throw new MyArraySizeException("На вход подан массив недопустимого размера");
+            }
         }
 
         for (int i = 0; i < arr.length; i++) {
@@ -30,6 +38,6 @@ public class MyExceptions {
                 sum += toInt;
             }
         }
-        System.out.println(format("Сумма элементов массива - %d",sum));
+        System.out.println(format("Сумма элементов массива - %d", sum));
     }
 }
