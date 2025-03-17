@@ -25,7 +25,7 @@ public class ForUnitTests {
         return a * b;
     }
 
-    public static double division(int a, int b) throws MyArithmeticException {
+    public static int division(int a, int b) throws MyArithmeticException {
         try {
             return a / b;
         } catch(ArithmeticException e){
