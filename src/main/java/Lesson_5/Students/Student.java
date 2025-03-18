@@ -13,7 +13,7 @@ public class Student {
         this.name = name;
         this.group = group;
         this.course = course;
-        this.gradesBySubjects = gradesBySubjects;
+        this.gradesBySubjects = Objects.requireNonNull(gradesBySubjects, "gradesBySubjects must not be null");
     }
 
     public String getName() {
@@ -37,7 +37,7 @@ public class Student {
         for (Map.Entry<String, Integer> entry : this.getGradesBySubjects().entrySet()) {
             sum += entry.getValue();
         }
-        return sum / 2;
+        return sum / getGradesBySubjects().size();
     }
 
     public void upLevelCourse() {

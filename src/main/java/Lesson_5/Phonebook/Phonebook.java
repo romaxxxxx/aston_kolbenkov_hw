@@ -24,6 +24,10 @@ public class Phonebook {
     }
 
     public void get(String name) {
-        System.out.println(phoneBook.get(name));
+        if (phoneBook.containsKey(name)) {
+            System.out.println(phoneBook.get(name));
+        } else {
+            System.out.printf("Контакта \"%s\" нет в тел. книге", name);
+        }
     }
 }

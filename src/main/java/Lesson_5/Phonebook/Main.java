@@ -10,5 +10,7 @@ public class Main {
         phonebook.add("петя", "125");
         phonebook.get("вася");
         phonebook.get("петя");
+        phonebook.get("батя");
+
     }
 }
