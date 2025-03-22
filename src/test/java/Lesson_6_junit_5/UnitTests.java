@@ -117,13 +117,13 @@ public class UnitTests {
         Assertions.assertEquals(thrown.getMessage(), "Число должно быть больше или равно нулю");
     }
 
-    @DisplayName("Проверка метода нахождения факториала на исключение MySubZeroException")
+    @DisplayName("Проверка метода нахождения факториала на переполнение")
     @Tag("factorialTests")
     @Test
-    void factorialOverflowDataTest() {
-        MySubZeroException thrown = Assertions.assertThrows(MySubZeroException.class,
-                () -> ForUnitTests.factorial(-2), "Ожидается MySubZeroException");
-        Assertions.assertEquals(thrown.getMessage(), "Число должно быть больше или равно нулю");
+    void factorialOverflowDataTest() throws MySubZeroException {
+        Assertions.assertNotNull(ForUnitTests.factorial(Integer.MAX_VALUE));
+
+
     }
 
     public static Object[][] sumTestData() {

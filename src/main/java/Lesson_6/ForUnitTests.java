@@ -3,6 +3,10 @@ package Lesson_6;
 import static java.lang.String.format;
 
 public class ForUnitTests {
+    public static void main(String[] args) {
+        System.out.println("dd" + sum(Integer.MAX_VALUE,Integer.MAX_VALUE));
+        //System.out.println("df" + multiplication(Integer.MAX_VALUE,Integer.MAX_VALUE));
+    }
     public static int factorial(int f) throws MySubZeroException {
         if (f < 0) {
             throw new MySubZeroException("Число должно быть больше или равно нулю");
@@ -25,7 +29,7 @@ public class ForUnitTests {
     }
 
     public static int sum(int a, int b) {
-        return a + b;
+        return Math.addExact(a, b);
     }
 
     public static int subtraction(int a, int b) {
