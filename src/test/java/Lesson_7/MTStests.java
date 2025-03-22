@@ -34,7 +34,6 @@ public class MTStests {
     static By loaderBy = By.className("loader");
     static By payDataFrameBy = By.className("bepaid-iframe");
     static By payDataForm = By.className("app-wrapper__content");
-    static By selectedCurrentValueBy = By.xpath("./../..//span[@class = 'select__now']");
     static List<String> payPartersLabelsActual = new ArrayList<>(List.of(
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa.svg",
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa-verified.svg",
@@ -50,7 +49,6 @@ public class MTStests {
         wait = new WebDriverWait(driver, Duration.ofMillis(10000));
         action = new Actions(driver);
         softAssert = new SoftAssert();
-
     }
 
     @Test()
@@ -126,8 +124,8 @@ public class MTStests {
 
     static void select(By by, String value) {
         WebElement selectField = driver.findElement(by);
-        WebElement selectedCurrentValue = selectField.findElement(selectedCurrentValueBy);
-        if (selectedCurrentValue.getText() != value) {
+        WebElement selectedCurrentValue = selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
+        if (selectedCurrentValue.isDisplayed()) {
             selectField.findElement(By.xpath("./../..")).click();
             WebElement selectElement = selectField.findElement(By.xpath("./../..//ul/li/p[text()='" + value + "']"));
             selectElement.click();
