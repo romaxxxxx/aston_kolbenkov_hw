@@ -125,7 +125,7 @@ public class MTStests {
     static void select(By by, String value) {
         WebElement selectField = driver.findElement(by);
         WebElement selectedCurrentValue = selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
-        if (selectedCurrentValue.isDisplayed()) {
+        if (!selectedCurrentValue.isDisplayed()) {
             selectField.findElement(By.xpath("./../..")).click();
             WebElement selectElement = selectField.findElement(By.xpath("./../..//ul/li/p[text()='" + value + "']"));
             selectElement.click();
