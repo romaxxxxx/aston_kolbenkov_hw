@@ -34,8 +34,7 @@ public class MTStests {
     static By loaderBy = By.className("loader");
     static By payDataFrameBy = By.className("bepaid-iframe");
     static By payDataForm = By.className("app-wrapper__content");
-   static By selectedCurrentValueBy = By.xpath("./../..//span[@class = 'select__now']");
-
+    static By selectedCurrentValueBy = By.xpath("./../..//span[@class = 'select__now']");
     static List<String> payPartersLabelsActual = new ArrayList<>(List.of(
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa.svg",
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa-verified.svg",
