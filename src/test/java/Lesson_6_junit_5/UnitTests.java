@@ -2,6 +2,7 @@ package Lesson_6_junit_5;
 
 import Lesson_6.ForUnitTests;
 import Lesson_6.MyArithmeticException;
+import Lesson_6.MySubZeroException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -10,6 +11,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import static java.lang.String.format;
 
 public class UnitTests {
     @ParameterizedTest
@@ -73,16 +76,54 @@ public class UnitTests {
     @Tag("TriangleAreaTests")
     @ParameterizedTest
     @CsvSource({"2, 4, 4", "5, 2, 5"})
-    void triangleAreaTest(int a, int h, int result) {
+    void triangleAreaTest(int a, int h, int result) throws MySubZeroException {
         Assertions.assertEquals(ForUnitTests.triangleArea(a, h), result);
+    }
+
+    @DisplayName("Проверка метода нахождения площади треугольника на исключение MySubZeroException при отрицательном основании" +
+            "треугольника")
+    @Tag("TriangleAreaTests")
+    @Test
+    void triangleAreaWithBaseSubZeroTest() {
+        MySubZeroException thrown = Assertions.assertThrows(MySubZeroException.class,
+                () -> ForUnitTests.triangleArea(-2, 4), "Ожидается MySubZeroException");
+        Assertions.assertEquals(thrown.getMessage(), "Основание треугольника меньше ноля");
+    }
+
+    @DisplayName("Проверка метода нахождения площади треугольника на исключение MySubZeroException при отрицательной высоте" +
+            "треугольника")
+    @Tag("TriangleAreaTests")
+    @Test
+    void triangleAreaWithHeightSubZeroTest() {
+        MySubZeroException thrown = Assertions.assertThrows(MySubZeroException.class,
+                () -> ForUnitTests.triangleArea(2, -4), "Ожидается MySubZeroException");
+        Assertions.assertEquals(thrown.getMessage(), "Высота треугольника меньше ноля");
     }
 
     @DisplayName("Проверка метода нахождения факториала")
     @Tag("factorialTests")
     @ParameterizedTest
     @CsvSource({"0,1", "5, 120"})
-    void factorialTest(int f, int result) {
-        Assertions.assertEquals(ForUnitTests.factorial(f), result);
+    void factorialTest(int f, int result) throws MySubZeroException {
+        Assertions.assertEquals(ForUnitTests.factorial(f), result, format("Неверный результат при числе - %d", f));
+    }
+
+    @DisplayName("Проверка метода нахождения факториала на исключение MySubZeroException")
+    @Tag("factorialTests")
+    @Test
+    void factorialSubZeroTest() {
+        MySubZeroException thrown = Assertions.assertThrows(MySubZeroException.class,
+                () -> ForUnitTests.factorial(-2), "Ожидается MySubZeroException");
+        Assertions.assertEquals(thrown.getMessage(), "Число должно быть больше или равно нулю");
+    }
+
+    @DisplayName("Проверка метода нахождения факториала на исключение MySubZeroException")
+    @Tag("factorialTests")
+    @Test
+    void factorialOverflowDataTest() {
+        MySubZeroException thrown = Assertions.assertThrows(MySubZeroException.class,
+                () -> ForUnitTests.factorial(-2), "Ожидается MySubZeroException");
+        Assertions.assertEquals(thrown.getMessage(), "Число должно быть больше или равно нулю");
     }
 
     public static Object[][] sumTestData() {
