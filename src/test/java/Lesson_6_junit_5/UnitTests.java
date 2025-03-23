@@ -23,6 +23,16 @@ public class UnitTests {
         Assertions.assertEquals(ForUnitTests.sum(a, b), sum);
     }
 
+    @Tag("SumTests")
+    @DisplayName("Проверка метода суммирования целых чисел на ArithmeticException:integer overflow")
+    @ParameterizedTest
+    @CsvSource({"-2147483648, -1", "2147483647, 1"})
+    void sumTestOverflowExceptionTest(int a, int b) {
+        ArithmeticException thrown = Assertions.assertThrows(ArithmeticException.class,
+                () -> ForUnitTests.sum(a, b), "Ожидается ArithmeticException");
+        Assertions.assertEquals(thrown.getMessage(), "integer overflow");
+    }
+
     @Test
     @DisplayName("Проверка на исключение MyArithmeticException при делении на ноль")
     @Tag("DivisionTests")
@@ -40,6 +50,17 @@ public class UnitTests {
         Assertions.assertEquals(ForUnitTests.multiplication(a, b), c);
     }
 
+    @DisplayName("Проверка метода умножения целых чисел на ArithmeticException: integer overflow")
+    @Tag("MultiplicationTests")
+    @ParameterizedTest
+    @CsvSource({"2147483647, 2", "-2147483648, 2"})
+    void MultiplicationOverflowExceptionTest(int a, int b) {
+        ArithmeticException thrown = Assertions.assertThrows(ArithmeticException.class,
+                () -> ForUnitTests.multiplication(a, b), "Ожидается ArithmeticException");
+        Assertions.assertEquals(thrown.getMessage(), "integer overflow");    }
+
+
+
     @DisplayName("Проверка метода деления")
     @Tag("DivisionTests")
     @ParameterizedTest
@@ -55,6 +76,15 @@ public class UnitTests {
     void subtractionTest(int a, int b, int c) {
         Assertions.assertEquals(ForUnitTests.subtraction(a, b), c);
     }
+
+    @DisplayName("Проверка метода вычитания целых чисел на ArithmeticException: integer overflow")
+    @Tag("SubtractionTests")
+    @ParameterizedTest
+    @CsvSource({"-2147483648, 1", "2147483647, -1"})
+    void subtractionOverflowExceptionTest(int a, int b) {
+        ArithmeticException thrown = Assertions.assertThrows(ArithmeticException.class,
+                () -> ForUnitTests.subtraction(a, b), "Ожидается ArithmeticException");
+        Assertions.assertEquals(thrown.getMessage(), "integer overflow");    }
 
     @DisplayName("Проверка метода сравнения равных чисел")
     @Tag("IsEqualsTests")
@@ -80,7 +110,7 @@ public class UnitTests {
         Assertions.assertEquals(ForUnitTests.triangleArea(a, h), result);
     }
 
-    @DisplayName("Проверка метода нахождения площади треугольника на исключение MySubZeroException при отрицательном основании" +
+    @DisplayName("Проверка метода нахождения площади треугольника на исключение MySubZeroException при отрицательном основании " +
             "треугольника")
     @Tag("TriangleAreaTests")
     @Test
@@ -90,7 +120,7 @@ public class UnitTests {
         Assertions.assertEquals(thrown.getMessage(), "Основание треугольника меньше ноля");
     }
 
-    @DisplayName("Проверка метода нахождения площади треугольника на исключение MySubZeroException при отрицательной высоте" +
+    @DisplayName("Проверка метода нахождения площади треугольника на исключение MySubZeroException при отрицательной высоте " +
             "треугольника")
     @Tag("TriangleAreaTests")
     @Test
@@ -105,7 +135,8 @@ public class UnitTests {
     @ParameterizedTest
     @CsvSource({"0,1", "5, 120"})
     void factorialTest(int f, int result) throws MySubZeroException {
-        Assertions.assertEquals(ForUnitTests.factorial(f), result, format("Неверный результат при числе - %d", f));
+        Assertions.assertEquals(ForUnitTests.factorial(f), result, format("Неверный результат при попытке нахождения " +
+                "факториала от числа - %d", f));
     }
 
     @DisplayName("Проверка метода нахождения факториала на исключение MySubZeroException")
@@ -117,20 +148,11 @@ public class UnitTests {
         Assertions.assertEquals(thrown.getMessage(), "Число должно быть больше или равно нулю");
     }
 
-    @DisplayName("Проверка метода нахождения факториала на переполнение")
-    @Tag("factorialTests")
-    @Test
-    void factorialOverflowDataTest() throws MySubZeroException {
-        Assertions.assertNotNull(ForUnitTests.factorial(Integer.MAX_VALUE));
-
-
-    }
-
     public static Object[][] sumTestData() {
         return new Object[][]{
                 {2, 2, 4},
                 {10, 1, 11},
-                {1000000, -1000000, 0}
+                {1000000, -1000000, 0},
         };
     }
 }
