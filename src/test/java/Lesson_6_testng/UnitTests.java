@@ -2,6 +2,7 @@ package Lesson_6_testng;
 
 import Lesson_6.ForUnitTests;
 import Lesson_6.MyArithmeticException;
+import Lesson_6.MySubZeroException;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
 import org.testng.annotations.DataProvider;
@@ -16,7 +17,14 @@ public class UnitTests {
         Assert.assertEquals(ForUnitTests.sum(a, b), sum);
     }
 
-    @Test(groups = "DivisionTests",expectedExceptions = MyArithmeticException.class,
+    @Test(dataProvider = "sumTestOverflowExceptionTestData", expectedExceptions = ArithmeticException.class,
+            expectedExceptionsMessageRegExp = "integer overflow")
+    @Tag(name = "SumTests")
+    void sumTestOverflowExceptionTest(int a, int b) {
+        ForUnitTests.sum(a, b);
+    }
+
+    @Test(groups = "DivisionTests", expectedExceptions = MyArithmeticException.class,
             expectedExceptionsMessageRegExp = "На ноль делить нельзя")
     @Tag(name = "DivisionTests")
     void myArithmeticExceptionDivisionTest() throws MyArithmeticException {
@@ -29,6 +37,13 @@ public class UnitTests {
         Assert.assertEquals(ForUnitTests.multiplication(a, b), c);
     }
 
+    @Test(dataProvider = "multiplicationOverflowExceptionTestData", expectedExceptions = ArithmeticException.class,
+            expectedExceptionsMessageRegExp = "integer overflow")
+    @Tag(name = "MultiplicationTests")
+    void multiplicationOverflowExceptionTest(int a, int b) {
+        ForUnitTests.multiplication(a, b);
+    }
+
     @Test(groups = "DivisionTests", dataProvider = "divisionTestData")
     @Tag(name = "DivisionTests")
     void divisionTest(int a, int b, int c) throws MyArithmeticException {
@@ -39,6 +54,13 @@ public class UnitTests {
     @Tag(name = "SubtractionTests")
     void subtractionTest(int a, int b, int c) {
         Assert.assertEquals(ForUnitTests.subtraction(a, b), c);
+    }
+
+    @Test(dataProvider = "subtractionOverflowExceptionTestData", expectedExceptions = ArithmeticException.class,
+            expectedExceptionsMessageRegExp = "integer overflow")
+    @Tag(name = "SubtractionTests")
+    void subtractionOverflowExceptionTest(int a, int b) {
+        ForUnitTests.subtraction(a, b);
     }
 
     @Test(groups = "isEqualsTests", dataProvider = "isEqualsTestData")
@@ -55,14 +77,35 @@ public class UnitTests {
 
     @Test(dataProvider = "triangleAreaTestData")
     @Tag(name = "TriangleAreaTests")
-    void triangleAreaTest(double a, double h, double result) {
+    void triangleAreaTest(double a, double h, double result) throws MySubZeroException {
         Assert.assertEquals(ForUnitTests.triangleArea(a, h), result);
+    }
+
+    @Test(expectedExceptions = MySubZeroException.class,
+            expectedExceptionsMessageRegExp = "Основание треугольника меньше ноля")
+    @Tag(name = "TriangleAreaTests")
+    void triangleAreaWithBaseSubZeroTest() throws MySubZeroException {
+        ForUnitTests.triangleArea(-2, 5);
+    }
+
+    @Test(expectedExceptions = MySubZeroException.class,
+            expectedExceptionsMessageRegExp = "Высота треугольника меньше ноля")
+    @Tag(name = "TriangleAreaTests")
+    void triangleAreaWithSubZeroHeightTest() throws MySubZeroException {
+        ForUnitTests.triangleArea(2, -5);
     }
 
     @Test(dataProvider = "factorialTestData")
     @Tag(name = "factorialTests")
-    void factorialTest(int f, int result) {
+    void factorialTest(int f, int result) throws MySubZeroException {
         Assert.assertEquals(ForUnitTests.factorial(f), result);
+    }
+
+    @Test(expectedExceptions = MySubZeroException.class,
+            expectedExceptionsMessageRegExp = "Число должно быть больше или равно нулю")
+    @Tag(name = "factorialTests")
+    void factorialMySubZeroExceptionTest() throws MySubZeroException {
+        ForUnitTests.factorial(-2);
     }
 
     @DataProvider
@@ -71,6 +114,14 @@ public class UnitTests {
                 {2, 2, 4},
                 {10, 1, 11},
                 {1000000, -1000000, 0}
+        };
+    }
+
+    @DataProvider
+    public static Object[][] sumTestOverflowExceptionTestData() {
+        return new Object[][]{
+                {-2147483648, -1},
+                {2147483647, 1},
         };
     }
 
@@ -117,6 +168,14 @@ public class UnitTests {
     }
 
     @DataProvider
+    public static Object[][] subtractionOverflowExceptionTestData() {
+        return new Object[][]{
+                {-2147483648, 1},
+                {2147483647, -1}
+        };
+    }
+
+    @DataProvider
     public static Object[][] divisionTestData() {
         return new Object[][]{
                 {8, 4, 2},
@@ -131,6 +190,14 @@ public class UnitTests {
                 {2, 4, 8},
                 {-2, -6, 12},
                 {-10, 2, -20}
+        };
+    }
+
+    @DataProvider
+    public static Object[][] multiplicationOverflowExceptionTestData() {
+        return new Object[][]{
+                {2147483647, 2},
+                {-2147483648, 2},
         };
     }
 }
