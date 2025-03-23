@@ -21,7 +21,7 @@ public class MTStests {
     static Actions action;
     static SoftAssert softAssert;
     static By cookieAgreeForm = By.className("cookie__wrapper");
-    static By cookieAgreeButton = By.id("cookie-agree");
+    static By cookieAgreeButtonBy = By.id("cookie-agree");
     static By paySection = By.id("pay-section");
     static By paySectionName = By.xpath("//div[contains(@class, 'pay__wrapper')]/h2");
     static By paySelect = By.id("pay");
@@ -49,13 +49,15 @@ public class MTStests {
         wait = new WebDriverWait(driver, Duration.ofMillis(10000));
         action = new Actions(driver);
         softAssert = new SoftAssert();
+        driver.get("https://www.mts.by/");
+
     }
 
     @Test()
     public static void checkPaySectionName() {
-        driver.get("https://www.mts.by/");
-        if (driver.findElement(cookieAgreeForm).isDisplayed()) {
-            wait.until(elementToBeClickable(driver.findElement(cookieAgreeButton))).click();
+        WebElement cookieAgreeButton = driver.findElement(cookieAgreeButtonBy);
+        if (cookieAgreeButton.isDisplayed()) {
+            cookieAgreeButton.click();
         }
         WebElement paySectionForm = driver.findElement(paySection);
         action.moveToElement(paySectionForm).perform();
@@ -65,9 +67,9 @@ public class MTStests {
 
     @Test()
     public static void checkPayPartnersLabel() {
-        driver.get("https://www.mts.by/");
-        if (driver.findElement(cookieAgreeForm).isDisplayed()) {
-            wait.until(elementToBeClickable(driver.findElement(cookieAgreeButton))).click();
+        WebElement cookieAgreeButton = driver.findElement(cookieAgreeButtonBy);
+        if (cookieAgreeButton.isDisplayed()) {
+            cookieAgreeButton.click();
         }
         WebElement paySectionForm = driver.findElement(paySection);
         action.moveToElement(paySectionForm).perform();
@@ -83,9 +85,9 @@ public class MTStests {
 
     @Test
     public static void checkLink() {
-        driver.get("https://www.mts.by/");
-        if (driver.findElement(cookieAgreeForm).isDisplayed()) {
-            wait.until(elementToBeClickable(driver.findElement(cookieAgreeButton))).click();
+        WebElement cookieAgreeButton = driver.findElement(cookieAgreeButtonBy);
+        if (cookieAgreeButton.isDisplayed()) {
+            cookieAgreeButton.click();
         }
         WebElement paySectionForm = driver.findElement(paySection);
         action.moveToElement(paySectionForm).perform();
@@ -96,9 +98,9 @@ public class MTStests {
 
     @Test
     public static void checkContinueButton() {
-        driver.get("https://www.mts.by/");
-        if (driver.findElement(cookieAgreeForm).isDisplayed()) {
-            wait.until(elementToBeClickable(driver.findElement(cookieAgreeButton))).click();
+        WebElement cookieAgreeButton = driver.findElement(cookieAgreeButtonBy);
+        if (cookieAgreeButton.isDisplayed()) {
+            cookieAgreeButton.click();
         }
         WebElement paySectionForm = driver.findElement(paySection);
         action.moveToElement(paySectionForm).perform();
