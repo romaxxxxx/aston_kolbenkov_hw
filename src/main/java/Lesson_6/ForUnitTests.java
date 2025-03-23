@@ -1,34 +1,53 @@
 package Lesson_6;
 
-public class ForUnitTests {
-    public static int factorial(int f) {
-            int result = 1;
-            for (int i = 1; i <= f; i++) {
-                result = result * i;
-            }
-            return result;
-        }
+import static java.lang.String.format;
 
-    public static double triangleArea(double a, double h) {
+public class ForUnitTests {
+    public static void main(String[] args) {
+        int i = Integer.MAX_VALUE;
+        System.out.println("dd" + sum(2147483647, 1));
+        System.out.println("dd" + sum(999999999, 0));
+
+        //System.out.println("df" + multiplication(Integer.MAX_VALUE,Integer.MAX_VALUE));
+    }
+
+    public static int factorial(int f) throws MySubZeroException {
+        if (f < 0) {
+            throw new MySubZeroException("Число должно быть больше или равно нулю");
+        }
+        int result = 1;
+        for (int i = 1; i <= f; i++) {
+            result = result * i;
+        }
+        return result;
+    }
+
+    public static double triangleArea(double a, double h) throws MySubZeroException {
+        if (a < 0) {
+            throw new MySubZeroException("Основание треугольника меньше ноля");
+        }
+        if (h < 0) {
+            throw new MySubZeroException("Высота треугольника меньше ноля");
+        }
         return 0.5 * a * h;
     }
 
     public static int sum(int a, int b) {
-        return a + b;
+        return Math.addExact(a, b);
     }
 
     public static int subtraction(int a, int b) {
-        return a - b;
+        return Math.subtractExact(a,b);
     }
 
     public static int multiplication(int a, int b) {
-        return a * b;
+        return Math.multiplyExact(a,b);
     }
 
-    public static int division(int a, int b) throws MyArithmeticException {
+    public static double division(int a, int b) throws MyArithmeticException {
         try {
             return a / b;
-        } catch(ArithmeticException e){
+        } catch (ArithmeticException e) {
             throw new MyArithmeticException("На ноль делить нельзя");
         }
     }
