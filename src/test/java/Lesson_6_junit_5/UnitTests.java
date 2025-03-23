@@ -114,7 +114,7 @@ public class UnitTests {
             "треугольника")
     @Tag("TriangleAreaTests")
     @Test
-    void triangleAreaWithBaseSubZeroTest() {
+    void triangleAreaWithBaseSubZeroExceptionTest() {
         MySubZeroException thrown = Assertions.assertThrows(MySubZeroException.class,
                 () -> ForUnitTests.triangleArea(-2, 4), "Ожидается MySubZeroException");
         Assertions.assertEquals(thrown.getMessage(), "Основание треугольника меньше ноля");
@@ -124,7 +124,7 @@ public class UnitTests {
             "треугольника")
     @Tag("TriangleAreaTests")
     @Test
-    void triangleAreaWithHeightSubZeroTest() {
+    void triangleAreaWithHeightSubZeroExceptionTest() {
         MySubZeroException thrown = Assertions.assertThrows(MySubZeroException.class,
                 () -> ForUnitTests.triangleArea(2, -4), "Ожидается MySubZeroException");
         Assertions.assertEquals(thrown.getMessage(), "Высота треугольника меньше ноля");
@@ -142,7 +142,7 @@ public class UnitTests {
     @DisplayName("Проверка метода нахождения факториала на исключение MySubZeroException")
     @Tag("factorialTests")
     @Test
-    void factorialSubZeroTest() {
+    void factorialMySubZeroExceptionTest() {
         MySubZeroException thrown = Assertions.assertThrows(MySubZeroException.class,
                 () -> ForUnitTests.factorial(-2), "Ожидается MySubZeroException");
         Assertions.assertEquals(thrown.getMessage(), "Число должно быть больше или равно нулю");
