@@ -84,7 +84,7 @@ public class MTStests {
     }
 
     @Test
-    public static void checkLink() {
+    public static void checkServiceInformationLink() {
         WebElement cookieAgreeButton = driver.findElement(cookieAgreeButtonBy);
         if (cookieAgreeButton.isDisplayed()) {
             cookieAgreeButton.click();
@@ -93,7 +93,8 @@ public class MTStests {
         action.moveToElement(paySectionForm).perform();
         WebElement moreServiceInformationlink = paySectionForm.findElement(moreServiceInformationlinkBy);
         moreServiceInformationlink.click();
-        Assert.assertNotNull(wait.until(titleContains("Порядок оплаты и безопасность интернет платежей")));
+        Assert.assertNotNull(wait.until(titleContains("Порядок оплаты и безопасность интернет платежей")),
+                "Страница с информацие о сервисе не открывается");
     }
 
     @Test
@@ -104,7 +105,7 @@ public class MTStests {
         }
         WebElement paySectionForm = driver.findElement(paySection);
         action.moveToElement(paySectionForm).perform();
-        select(paySelect, "Услуги связи");
+        selectListValue(paySelect, "Услуги связи");
         WebElement telephoneNumberInput = driver.findElement(telephoneNumberInputBy);
         telephoneNumberInput.sendKeys("297777777");
         WebElement totalSumInput = driver.findElement(totalSumInputBy);
@@ -116,7 +117,8 @@ public class MTStests {
         wait.until(visibilityOfElementLocated(loaderBy));
         wait.until(invisibilityOf(driver.findElement(loaderBy)));
         wait.until(frameToBeAvailableAndSwitchToIt(driver.findElement(payDataFrameBy)));
-        Assert.assertNotNull(wait.until(visibilityOf(driver.findElement(payDataForm))));
+        Assert.assertNotNull(wait.until(visibilityOf(driver.findElement(payDataForm))),
+                "Форма для ввода данных по оплате не открывается");
     }
 
     @AfterMethod
@@ -124,7 +126,7 @@ public class MTStests {
         driver.close();
     }
 
-    static void select(By by, String value) {
+    static void selectListValue(By by, String value) {
         WebElement selectField = driver.findElement(by);
         WebElement selectedCurrentValue = selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
         if (!selectedCurrentValue.isDisplayed()) {
