@@ -16,7 +16,6 @@ public class BasePage {
     public WebDriver driver;
     static WebDriverWait wait;
     static Actions action;
-    //public Assert asert;
 
     public BasePage(WebDriver driver) {
         WebDriverManager.chromedriver().setup();
@@ -24,11 +23,14 @@ public class BasePage {
         this.driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofMillis(10000));
         action = new Actions(driver);
-       // this.asert = new Assert();
 }
 
     public void waitVisibility(By elementBy) {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(elementBy)));
+    }
+
+    public void waitInVisibility(By elementBy) {
+        wait.until(ExpectedConditions.invisibilityOf((driver.findElement(elementBy))));
     }
 
     public void waitExistElement(By elementBy) {
@@ -55,5 +57,21 @@ public class BasePage {
     public void moveToElement(By by){
         action.moveToElement(webElementBy(by)).perform();
     }
+
+    public void selectElement(By by, String value){
+        WebElement selectField = webElementBy(by);
+        WebElement selectedCurrentValue = selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
+        if (!selectedCurrentValue.isDisplayed()) {
+            selectField.findElement(By.xpath("./../..")).click();
+            WebElement selectElement = selectField.findElement(By.xpath("./../..//ul/li/p[text()='" + value + "']"));
+            selectElement.click();
+        }
+    }
+
+    public void fillfield(By by, String value){
+        webElementBy(by).sendKeys(value);
+    }
+
+
 
     }

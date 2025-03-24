@@ -2,6 +2,7 @@ package Lesson_8;
 
 import Lesson_8.Pages.CookieAgreePage;
 import Lesson_8.Pages.HomePage;
+import Lesson_8.Pages.PayFormPage;
 import Lesson_8.Pages.ServiceInfoPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.titleContains;
 
 public class MTSTests extends BaseTest {
     static List<String> payPartersLabelsActual = new ArrayList<>(List.of(
@@ -46,10 +46,22 @@ public class MTSTests extends BaseTest {
     public static void checkLink() {
         ServiceInfoPage serviceInfoPage = new CookieAgreePage(driver)
                 .acceptCookiesOnHomePage()
-                .movToServiceInfoPage()
-                .waitLoadServiceInfoPage();
+                .movToServiceInfoPage();
 
-        Assert.assertNotNull(serviceInfoPage);
+        Assert.assertNotNull(serviceInfoPage, "Страница с информацие о сервисе не открывается");
+    }
+
+    @Test
+    public static void checkContinueButton() {
+        PayFormPage PayForm = new CookieAgreePage(driver)
+                .acceptCookiesOnHomePage()
+                .selectServiceType("Услуги связи")
+                .typeTelephoneNumber("297777777")
+                .typeEmail("sdf@mail.ru")
+                .typeTotalSum("50")
+                .moveToPayFormPage();
+
+        Assert.assertNotNull(PayForm, "Форма для ввода данных по оплате не открывается");
     }
 
 

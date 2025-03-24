@@ -12,6 +12,13 @@ public class HomePage extends BasePage {
     static By paySectionName = By.xpath("//div[contains(@class, 'pay__wrapper')]/h2");
     static By payPartnersLabelsBy = By.xpath("//div[@class = 'pay__partners']/ul/li/img");
     static By moreServiceInformationlinkBy = By.xpath("//a[text() = 'Подробнее о сервисе']");
+    static By paySelect = By.id("pay");
+    static By telephoneNumberInputBy = By.id("connection-phone");
+    static By totalSumInputBy = By.id("connection-sum");
+    static By emailInputBy = By.id("connection-email");
+    static By continueButtonBy = By.xpath("//button[text()='Продолжить']");
+
+
 
 
 
@@ -39,5 +46,31 @@ public class HomePage extends BasePage {
         webElementBy(moreServiceInformationlinkBy).click();
         return new ServiceInfoPage(driver);
     }
+
+    public HomePage selectServiceType(String serviceType){
+        selectElement(paySelect, serviceType);
+        return this;
+    }
+
+    public HomePage typeTelephoneNumber(String value){
+        fillfield(telephoneNumberInputBy, value);
+        return this;
+    }
+
+    public HomePage typeTotalSum(String value){
+        fillfield(totalSumInputBy, value);
+        return this;
+    }
+    public HomePage typeEmail(String value){
+        fillfield(emailInputBy, value);
+        return this;
+    }
+
+    public PayFormPage moveToPayFormPage(){
+        click(continueButtonBy);
+        return new PayFormPage(driver);
+    }
+
+    //public PayFormPage fillServicesAndCommunicationsPaySection()
 
 }
