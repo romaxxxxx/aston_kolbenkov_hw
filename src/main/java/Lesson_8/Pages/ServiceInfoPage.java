@@ -1,4 +1,16 @@
 package Lesson_8.Pages;
 
-public class ServiceInfoPage {
+import org.openqa.selenium.WebDriver;
+
+public class ServiceInfoPage extends BasePage{
+    String titlePage = "Порядок оплаты и безопасность интернет платежей";
+    public ServiceInfoPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public ServiceInfoPage waitLoadServiceInfoPage(){
+        waitTitlePage(titlePage);
+        return this;
+    }
+
 }

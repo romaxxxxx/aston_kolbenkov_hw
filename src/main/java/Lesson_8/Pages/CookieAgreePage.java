@@ -6,17 +6,18 @@ import org.openqa.selenium.WebDriver;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class CookieAgreePage extends BasePage {
-    //BasePage basePage = new BasePage(driver);
-    static By cookieAgreeForm = By.className("cookie__wrapper");
+    //static By cookieAgreeForm = By.className("cookie__wrapper");
     static By cookieAgreeButton = By.id("cookie-agree");
 
     public CookieAgreePage(WebDriver driver) {
         super(driver);
     }
 
-    public CookieAgreePage cookiesAgree(){
-        waitToBeClickableElement(cookieAgreeButton).click();
-        return this;
+    public HomePage acceptCookiesOnHomePage(){
+        if(webElementBy(cookieAgreeButton).isDisplayed()){
+            webElementBy(cookieAgreeButton).click();
+        }
+        return new HomePage(driver);
     }
 
 }
