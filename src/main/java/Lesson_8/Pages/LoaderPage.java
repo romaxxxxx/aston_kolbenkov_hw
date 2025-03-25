@@ -3,9 +3,6 @@ package Lesson_8.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOf;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 public class LoaderPage extends BasePage{
     static By loaderBy = By.className("loader");
 
