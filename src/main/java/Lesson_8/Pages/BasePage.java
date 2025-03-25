@@ -1,8 +1,8 @@
 package Lesson_8.Pages;
 
-import dev.failsafe.internal.util.Assert;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -41,9 +41,10 @@ public class BasePage {
         wait.until(ExpectedConditions.titleContains(titleName));
     }
 
-    public void click (By elementBy) {
-        waitVisibility(elementBy);
-        driver.findElement(elementBy).click();
+    public void click (By by) {
+        moveToElement(by);
+        waitVisibility(by);
+        driver.findElement(by).click();
     }
 
     public WebElement waitToBeClickableElement(By elementBy){
@@ -58,20 +59,35 @@ public class BasePage {
         action.moveToElement(webElementBy(by)).perform();
     }
 
-    public void selectElement(By by, String value){
+
+
+    public void fillfield(By by, String value){
+        moveToElement(by);
+        webElementBy(by).sendKeys(value);
+    }
+    public String getWebElementAttrubuteValue(By by, String attributeName){
+        return webElementBy(by).getAttribute(attributeName);
+    }
+
+    public void selectListElement(By by, String value){
+        moveToElement(by);
         WebElement selectField = webElementBy(by);
-        WebElement selectedCurrentValue = selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
-        if (!selectedCurrentValue.isDisplayed()) {
+        //var selectedCurrentValue = selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
+        if (!isDisplayedWebElement(selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']")))) {
             selectField.findElement(By.xpath("./../..")).click();
             WebElement selectElement = selectField.findElement(By.xpath("./../..//ul/li/p[text()='" + value + "']"));
             selectElement.click();
         }
     }
 
-    public void fillfield(By by, String value){
-        webElementBy(by).sendKeys(value);
+    public boolean isDisplayedWebElement(WebElement webElement){
+        boolean bool=true;
+        try {
+            WebElement webElement1 = webElement;
+        }catch (NoSuchElementException e){
+            e.getMessage();
+            bool = false;
+        }
+        return bool;
     }
-
-
-
     }

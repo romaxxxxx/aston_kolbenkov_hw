@@ -8,10 +8,4 @@ public class ServiceInfoPage extends BasePage{
         super(driver);
         waitTitlePage(titlePage);
     }
-
-//    public ServiceInfoPage waitLoadServiceInfoPage(){
-//        waitTitlePage(titlePage);
-//        return this;
-//    }
-
 }
