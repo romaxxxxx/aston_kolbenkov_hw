@@ -29,10 +29,10 @@ public class PayFormPage extends BasePage {
     static By visaLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[1]");
 
 
-    static By mastercardLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[1]");
-    static By belcartLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[2]");
-    static By mirLableBy = By.xpath("//div[contains(@class,'cards-brands_random')]/img[1]");
-    static By maestroLableBy = By.xpath("//div[contains(@class,'cards-brands_random')]/img[2]");
+    static By mastercardLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[2]");
+    static By belcartLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[3]");
+    static By mirLableBy = By.xpath("//div[contains(@class,'cards-brands_random')]/img[2]");
+    static By maestroLableBy = By.xpath("//div[contains(@class,'cards-brands_random')]/img[1]");
 
 
     public PayFormPage(WebDriver driver) {
