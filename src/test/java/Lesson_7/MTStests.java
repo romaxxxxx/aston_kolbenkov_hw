@@ -46,7 +46,7 @@ public class MTStests {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofMillis(10000));
+        wait = new WebDriverWait(driver, Duration.ofMillis(20000));
         action = new Actions(driver);
         softAssert = new SoftAssert();
     }
@@ -95,14 +95,14 @@ public class MTStests {
     }
 
     @Test
-    public static void checkContinueButton() {
+    public static void checkContinueButton() throws InterruptedException {
         driver.get("https://www.mts.by/");
         if (driver.findElement(cookieAgreeForm).isDisplayed()) {
             wait.until(elementToBeClickable(driver.findElement(cookieAgreeButton))).click();
         }
         WebElement paySectionForm = driver.findElement(paySection);
         action.moveToElement(paySectionForm).perform();
-        select(paySelect, "Услуги связи");
+        selectListElement(paySelect, "Услуги связи");
         WebElement telephoneNumberInput = driver.findElement(telephoneNumberInputBy);
         telephoneNumberInput.sendKeys("297777777");
         WebElement totalSumInput = driver.findElement(totalSumInputBy);
@@ -111,9 +111,7 @@ public class MTStests {
         emailInput.sendKeys("asdf@mail.ru");
         WebElement continueButton = driver.findElement(continueButtonBy);
         continueButton.click();
-        wait.until(visibilityOfElementLocated(loaderBy));
-        wait.until(invisibilityOf(driver.findElement(loaderBy)));
-        wait.until(frameToBeAvailableAndSwitchToIt(driver.findElement(payDataFrameBy)));
+        waitFrome(payDataFrameBy);
         Assert.assertNotNull(wait.until(visibilityOf(driver.findElement(payDataForm))));
     }
 
@@ -122,7 +120,21 @@ public class MTStests {
         driver.close();
     }
 
-    static void select(By by, String value) {
+    static void waitFrome(By by) throws InterruptedException {
+        for(int i = 0;i<6;i++) {
+            try {
+                wait.until(frameToBeAvailableAndSwitchToIt(driver.findElement(payDataFrameBy)));
+            }catch (NoSuchElementException e){
+                System.out.println("Попытка"+i);
+            }
+            Thread.sleep(5000);
+            List<WebElement> frame = driver.findElements(payDataForm);
+            if(frame.size()>0)
+                break;
+        }
+    }
+
+    static void selectListElement(By by, String value) {
         WebElement selectField = driver.findElement(by);
         WebElement selectedCurrentValue = selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
         if (!selectedCurrentValue.isDisplayed()) {
@@ -131,4 +143,7 @@ public class MTStests {
             selectElement.click();
         }
     }
+
+
+
 }
