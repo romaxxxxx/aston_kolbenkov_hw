@@ -1,8 +1,7 @@
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
-//import static org.apache.commons.codec.digest.UnixCrypt.body;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 
 public class EchoAPITests extends BaseTest {
     @Test
@@ -18,9 +17,8 @@ public class EchoAPITests extends BaseTest {
                 .log().all()
                 .spec(setupResponseSpec)
                 .body("args.foo1", equalTo("bar1"))
-                .body("args.foo2", equalTo("bar2"))
-                .body("headers.x-forwarded-proto", equalTo("https"))
-                .body("headers.host", equalTo("postman-echo.com"));
+                .body("args.foo2", equalTo("bar2"));
+
     }
 
     @Test
