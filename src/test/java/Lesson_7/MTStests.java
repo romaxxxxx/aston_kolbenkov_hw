@@ -111,7 +111,7 @@ public class MTStests {
         emailInput.sendKeys("asdf@mail.ru");
         WebElement continueButton = driver.findElement(continueButtonBy);
         continueButton.click();
-        waitFrome(payDataFrameBy);
+        waitFrame(payDataFrameBy);
         Assert.assertNotNull(wait.until(visibilityOf(driver.findElement(payDataForm))));
     }
 
@@ -120,7 +120,7 @@ public class MTStests {
         driver.close();
     }
 
-    static void waitFrome(By by) throws InterruptedException {
+    static void waitFrame(By by) throws InterruptedException {
         for(int i = 0;i<6;i++) {
             try {
                 wait.until(frameToBeAvailableAndSwitchToIt(driver.findElement(payDataFrameBy)));

@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation group: 'org.testng', name: 'testng', version: '6.8'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.1.0'
     implementation("io.github.bonigarcia:webdrivermanager:5.7.0")
     implementation("org.seleniumhq.selenium:selenium-java:4.26.0")
 }
