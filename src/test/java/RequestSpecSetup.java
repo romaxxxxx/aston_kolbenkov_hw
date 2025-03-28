@@ -1,21 +1,17 @@
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.config.RestAssuredConfig;
 import io.restassured.specification.RequestSpecification;
-import org.testng.annotations.BeforeClass;
 
-import java.nio.charset.Charset;
+public class RequestSpecSetup {
+    private static RequestSpecBuilder builder;
 
-public class RequestSpecTest {
-    public static RequestSpecBuilder builder;
-    @BeforeClass
-    public static RequestSpecification setupRequestSpecBuilder() {
+    public static RequestSpecification setupRequestSpec() {
         builder = new RequestSpecBuilder();
         return builder
                 .setBaseUri("https://postman-echo.com")
                 .build();
     }
 
-    public static RequestSpecification urlencodedSetupRequestSpecBuilder() {
+    public static RequestSpecification urlencodedSetupRequestSpec() {
         builder = new RequestSpecBuilder();
         return builder
                 .setBaseUri("https://postman-echo.com")
