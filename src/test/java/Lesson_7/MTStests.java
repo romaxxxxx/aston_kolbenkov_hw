@@ -123,7 +123,7 @@ public class MTStests {
     static void waitFrame(By by) throws InterruptedException {
         for(int i = 0;i<6;i++) {
             try {
-                wait.until(frameToBeAvailableAndSwitchToIt(driver.findElement(payDataFrameBy)));
+                wait.until(frameToBeAvailableAndSwitchToIt(driver.findElement(by)));
             }catch (NoSuchElementException e){
                 System.out.println("Попытка"+i);
             }
