@@ -54,7 +54,7 @@ public class MTSTests extends BaseTest {
     }
 
     @Test
-    public static void checkContinueButton() {
+    public static void checkContinueButton() throws InterruptedException {
         PayFormPage PayForm = new CookieAgreePage(driver)
                 .acceptCookiesOnHomePage()
                 .typeServicesAndCommunicationsPayData("297777777", "asdf@mail.ru", "50")
@@ -64,7 +64,7 @@ public class MTSTests extends BaseTest {
     }
 
     @Test
-    public static void checkPlaceholdersInPayField() {
+    public static void checkPlaceholdersInPayField() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
 
         new CookieAgreePage(driver)
@@ -101,7 +101,7 @@ public class MTSTests extends BaseTest {
     }
 
     @Test
-    public static void checkPayDataForm() {
+    public static void checkPayDataForm() throws InterruptedException {
         HomePage homePage = new CookieAgreePage(driver)
                 .acceptCookiesOnHomePage()
                 .typeServicesAndCommunicationsPayData("297777777", "asdf@mail.ru", "50");
@@ -119,7 +119,7 @@ public class MTSTests extends BaseTest {
     }
 
     @Test
-    public static void checkPlaceholdersPayForm() {
+    public static void checkPayFormPlaceholders() throws InterruptedException {
         PayFormPage payFormPage = new CookieAgreePage(driver)
                 .acceptCookiesOnHomePage()
                 .typeServicesAndCommunicationsPayData("297777777", "asdf@mail.ru", "50")
@@ -132,7 +132,7 @@ public class MTSTests extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test static void checkPartnersLabelOnPayForm(){
+    @Test static void checkPartnersLabelOnPayForm() throws InterruptedException {
         PayFormPage payFormPage = new CookieAgreePage(driver)
                 .acceptCookiesOnHomePage()
                 .typeServicesAndCommunicationsPayData("297777777", "asdf@mail.ru", "50")

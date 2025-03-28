@@ -65,7 +65,7 @@ public class HomePage extends BasePage {
         return new ServiceInfoPage(driver);
     }
 
-    public HomePage selectServiceType(String serviceType) {
+    public HomePage selectServiceType(String serviceType) throws InterruptedException {
         this.serviceType = serviceType;
         selectListElement(paySelect, serviceType);
         return this;
@@ -89,12 +89,12 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public PayFormPage moveToPayFormPage() {
+    public PayFormPage moveToPayFormPage() throws InterruptedException {
         click(continueButtonBy);
         return new PayFormPage(driver);
     }
 
-    public HomePage typeServicesAndCommunicationsPayData(String telephoneNumber, String email, String totalSum) {
+    public HomePage typeServicesAndCommunicationsPayData(String telephoneNumber, String email, String totalSum) throws InterruptedException {
 
         selectServiceType("Услуги связи");
         typeTelephoneNumber(telephoneNumber);
@@ -103,7 +103,7 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public Map<By, String> getPlaceholdersInput(String serviceType) {
+    public Map<By, String> getPlaceholdersInput(String serviceType) throws InterruptedException {
         Map<By, String> placeholders = null;
 
         if (serviceType == "Услуги связи") {

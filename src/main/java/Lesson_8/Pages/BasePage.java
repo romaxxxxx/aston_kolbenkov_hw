@@ -13,11 +13,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.frameToBeAvailableAndSwitchToIt;
+
 public class BasePage {
     public WebDriver driver;
     static WebDriverWait wait;
     static Actions action;
-    HomePage homePage;
 
     public BasePage(WebDriver driver) {
         WebDriverManager.chromedriver().setup();
@@ -57,6 +58,10 @@ public class BasePage {
         return driver.findElement(by);
     }
 
+    public List<WebElement> webElementsBy(By by) {
+        return driver.findElements(by);
+    }
+
     public void moveToElement(By by) {
         action.moveToElement(webElementBy(by)).perform();
     }
@@ -71,31 +76,33 @@ public class BasePage {
         return webElementBy(by).getAttribute(attributeName);
     }
 
-    public void selectListElement(By by, String value) {
-        moveToElement(by);
-        WebElement selectField = webElementBy(by);
-        List<WebElement> selectedCurrentValue = selectField.findElements(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
-        if (selectedCurrentValue.size() == 0) {
+    public void selectListElement(By selectFieldby, String value) {
+        moveToElement(selectFieldby);
+        WebElement selectField = webElementBy(selectFieldby);
+        try {
+            selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
+        } catch(NoSuchElementException e) {
             selectField.findElement(By.xpath("./../..")).click();
             WebElement selectElement = selectField.findElement(By.xpath("./../..//ul/li/p[text()='" + value + "']"));
             selectElement.click();
         }
     }
 
-    public boolean isDisplayedWebElement(WebElement webElement) {
-        boolean bool = true;
-        try {
-            WebElement webElement1 = webElement;
-        } catch (NoSuchElementException e) {
-            e.getMessage();
-            bool = false;
-        }
-        return bool;
-    }
-
-    public String getWebElementText(By by){
+    public String getWebElementText(By by) {
         return webElementBy(by).getText();
     }
 
-
+    public void waitFrame(By frameBy, By webFormBy) throws InterruptedException {
+        for (int i = 0; i < 6; i++) {
+            try {
+                wait.until(frameToBeAvailableAndSwitchToIt(webElementBy(frameBy)));
+            } catch (NoSuchElementException e) {
+                System.out.println("Попытка" + i);
+            }
+            Thread.sleep(5000);
+            List<WebElement> frame = webElementsBy(webFormBy);
+            if (frame.size() > 0)
+                break;
+        }
+    }
 }
