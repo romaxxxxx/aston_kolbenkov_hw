@@ -16,9 +16,9 @@ import java.util.List;
 import static org.openqa.selenium.support.ui.ExpectedConditions.frameToBeAvailableAndSwitchToIt;
 
 public class BasePage {
-    public WebDriver driver;
-    static WebDriverWait wait;
-    static Actions action;
+    protected WebDriver driver;
+    private static WebDriverWait wait;
+    private static Actions action;
 
     public BasePage(WebDriver driver) {
         WebDriverManager.chromedriver().setup();
@@ -32,26 +32,14 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(elementBy)));
     }
 
-    public void waitInVisibility(By elementBy) {
-        wait.until(ExpectedConditions.invisibilityOf((driver.findElement(elementBy))));
-    }
-
-    public void waitExistElement(By elementBy) {
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(elementBy));
-    }
-
     public void waitTitlePage(String titleName) {
         wait.until(ExpectedConditions.titleContains(titleName));
     }
 
     public void click(By by) {
-        moveToElement(by);
+        moveToElementBy(by);
         waitVisibility(by);
         driver.findElement(by).click();
-    }
-
-    public WebElement waitToBeClickableElement(By elementBy) {
-        return wait.until(ExpectedConditions.elementToBeClickable(elementBy));
     }
 
     public WebElement webElementBy(By by) {
@@ -62,28 +50,36 @@ public class BasePage {
         return driver.findElements(by);
     }
 
-    public void moveToElement(By by) {
+    public void moveToElementBy(By by) {
         action.moveToElement(webElementBy(by)).perform();
     }
 
+    public void moveToElement(WebElement webElement) {
+        action.moveToElement(webElement).perform();
+    }
 
-    public void fillfield(By by, String value) {
-        moveToElement(by);
+    public void fillField(By by, String value) {
+        moveToElementBy(by);
         webElementBy(by).sendKeys(value);
     }
 
-    public String getWebElementAttrubuteValue(By by, String attributeName) {
+    public String getWebElementAttributeValue(By by, String attributeName) {
         return webElementBy(by).getAttribute(attributeName);
     }
 
-    public void selectListElement(By selectFieldby, String value) {
-        moveToElement(selectFieldby);
-        WebElement selectField = webElementBy(selectFieldby);
+    public String getPlaceholder(By by){
+        return webElementBy(by).getAttribute("placeholder");
+    }
+
+    public void selectListElement(By selectFieldBy, String value) {
+        moveToElementBy(selectFieldBy);
+        WebElement selectField = webElementBy(selectFieldBy);
         try {
             selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
         } catch(NoSuchElementException e) {
             selectField.findElement(By.xpath("./../..")).click();
             WebElement selectElement = selectField.findElement(By.xpath("./../..//ul/li/p[text()='" + value + "']"));
+            moveToElement(selectElement);
             selectElement.click();
         }
     }

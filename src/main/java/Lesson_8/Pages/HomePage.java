@@ -1,14 +1,12 @@
 package Lesson_8.Pages;
 
-import com.google.common.base.Splitter;
+import Lesson_8.Data.PayFieldsInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HomePage extends BasePage {
     static By paySection = By.id("pay-section");
@@ -33,25 +31,22 @@ public class HomePage extends BasePage {
 
     public String serviceType;
     public String connectionPhoneNumberInput;
-    public  String connectionSumInput;
+    public String connectionSumInput;
     public String connectionEmailInput;
-
-    static public Map<By, String> fieldNameByLocator;
-    static Map<By, String> actualPlaceholdersField;
+    List<PayFieldsInfo> payFieldsInfo;
 
     public HomePage(WebDriver driver) {
         super(driver);
-        actualPlaceholdersFieldInit();
     }
 
     public String getPaySectionName() {
-        moveToElement(paySection);
+        moveToElementBy(paySection);
         return webElementBy(paySection).findElement(paySectionName).getText();
     }
 
     public List<String> getPayPartnerLableLinks() {
         List<String> lableLinks = new ArrayList<>();
-        moveToElement(paySection);
+        moveToElementBy(paySection);
         List<WebElement> payPartnersLabels = driver.findElements(payPartnersLabelsBy);
         for (WebElement payPartnerLabel : payPartnersLabels) {
             lableLinks.add(payPartnerLabel.getAttribute("src"));
@@ -60,12 +55,12 @@ public class HomePage extends BasePage {
     }
 
     public ServiceInfoPage moveToServiceInfoPage() {
-        moveToElement(paySection);
+        moveToElementBy(paySection);
         webElementBy(moreServiceInformationlinkBy).click();
         return new ServiceInfoPage(driver);
     }
 
-    public HomePage selectServiceType(String serviceType) throws InterruptedException {
+    public HomePage selectServiceType(String serviceType) {
         this.serviceType = serviceType;
         selectListElement(paySelect, serviceType);
         return this;
@@ -73,19 +68,19 @@ public class HomePage extends BasePage {
 
     public HomePage typeTelephoneNumber(String value) {
         this.connectionPhoneNumberInput = value;
-        fillfield(connectionPhoneNumberInputBy, value);
+        fillField(connectionPhoneNumberInputBy, value);
         return this;
     }
 
     public HomePage typeTotalSum(String value) {
         this.connectionSumInput = value;
-        fillfield(connectionSumInputBy, value);
+        fillField(connectionSumInputBy, value);
         return this;
     }
 
     public HomePage typeEmail(String value) {
         this.connectionEmailInput = value;
-        fillfield(connectionEmailInputBy, value);
+        fillField(connectionEmailInputBy, value);
         return this;
     }
 
@@ -94,7 +89,7 @@ public class HomePage extends BasePage {
         return new PayFormPage(driver);
     }
 
-    public HomePage typeServicesAndCommunicationsPayData(String telephoneNumber, String email, String totalSum) throws InterruptedException {
+    public HomePage typeServicesAndCommunicationsPayData(String telephoneNumber, String email, String totalSum) {
 
         selectServiceType("Услуги связи");
         typeTelephoneNumber(telephoneNumber);
@@ -103,83 +98,48 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public Map<By, String> getPlaceholdersInput(String serviceType) throws InterruptedException {
-        Map<By, String> placeholders = null;
-
+    public List<PayFieldsInfo> getPlaceholdersInput(String serviceType) {
+        payFieldsInfo = new ArrayList<>();
         if (serviceType == "Услуги связи") {
             selectServiceType("Услуги связи");
-            placeholders = Map.of(
-                    connectionPhoneNumberInputBy, getWebElementAttrubuteValue(connectionPhoneNumberInputBy, "placeholder"),
-                    connectionSumInputBy, getWebElementAttrubuteValue(connectionSumInputBy, "placeholder"),
-                    connectionEmailInputBy, getWebElementAttrubuteValue(connectionEmailInputBy, "placeholder")
-            );
+            payFieldsInfo.add(new PayFieldsInfo("Телефон: Услуги связи", "Номер телефона",
+                    getPlaceholder(connectionPhoneNumberInputBy)));
+            payFieldsInfo.add(new PayFieldsInfo("Сумма: Услуги связи", "Сумма",
+                    getPlaceholder(connectionSumInputBy)));
+            payFieldsInfo.add(new PayFieldsInfo("Email: Услуги связи", "E-mail для отправки чека",
+                    getPlaceholder(connectionEmailInputBy)));
         }
+
         if (serviceType == "Домашний интернет") {
             selectServiceType("Домашний интернет");
-            placeholders = Map.of(
-                    internetPhoneNumberInputBy, getWebElementAttrubuteValue(internetPhoneNumberInputBy, "placeholder"),
-                    internetSumInputBy, getWebElementAttrubuteValue(internetSumInputBy, "placeholder"),
-                    internetEmailInputBy, getWebElementAttrubuteValue(internetEmailInputBy, "placeholder")
-            );
+            payFieldsInfo.add(new PayFieldsInfo("Номер абонента: Домашний интернет", "Номер абонента",
+                    getPlaceholder(internetPhoneNumberInputBy)));
+            payFieldsInfo.add(new PayFieldsInfo("Сумма: Домашний интернет", "Сумма",
+                    getPlaceholder(internetSumInputBy)));
+            payFieldsInfo.add(new PayFieldsInfo("Email: Домашний интернет", "E-mail для отправки чека",
+                    getPlaceholder(internetEmailInputBy)));
         }
 
-        if (serviceType == "Рассрочка") {
+        if (serviceType.equals("Рассрочка")) {
             selectServiceType("Рассрочка");
-            placeholders = Map.of(
-                    instalmentScoreInputBy, getWebElementAttrubuteValue(instalmentScoreInputBy, "placeholder"),
-                    instalmentSumInputBy, getWebElementAttrubuteValue(instalmentSumInputBy, "placeholder"),
-                    instalmentEmailInputBy, getWebElementAttrubuteValue(instalmentEmailInputBy, "placeholder")
-            );
+            payFieldsInfo.add(new PayFieldsInfo("Номер счета: Рассрочка", "Номер счета на 44",
+                    getPlaceholder(instalmentScoreInputBy)));
+            payFieldsInfo.add(new PayFieldsInfo("Сумма: Рассрочка", "Сумма",
+                    getPlaceholder(instalmentSumInputBy)));
+            payFieldsInfo.add(new PayFieldsInfo("Email: Рассрочка", "E-mail для отправки чека",
+                    getPlaceholder(instalmentEmailInputBy)));
         }
-        if (serviceType == "Задолженность") {
+
+        if (serviceType.equals("Задолженность")) {
             selectServiceType("Задолженность");
-            placeholders = Map.of(
-                    scoreArrearsInputBy, getWebElementAttrubuteValue(scoreArrearsInputBy, "placeholder"),
-                    arrearsSumInputBy, getWebElementAttrubuteValue(arrearsSumInputBy, "placeholder"),
-                    arrearsEmailInputBy, getWebElementAttrubuteValue(arrearsEmailInputBy, "placeholder")
-            );
+            payFieldsInfo.add(new PayFieldsInfo("Номер счета: Задолженность", "Номер счета на 2073",
+                    getPlaceholder(scoreArrearsInputBy)));
+            payFieldsInfo.add(new PayFieldsInfo("Сумма: Задолженность", "Сумма",
+                    getPlaceholder(arrearsSumInputBy)));
+            payFieldsInfo.add(new PayFieldsInfo("Email: Задолженность", "E-mail для отправки чека",
+                    getPlaceholder(arrearsEmailInputBy)));
+
         }
-        return placeholders;
+        return payFieldsInfo;
     }
-
-    public String getActualplaceholder(By by) {
-        return actualPlaceholdersField.get(by);
-    }
-
-    public String getFieldNameByLocator(By by) {
-        fieldNameByLocator = new HashMap<>();
-        fieldNameByLocator.put(connectionPhoneNumberInputBy, "Телефон: Услуги связи");
-        fieldNameByLocator.put(connectionSumInputBy, "Сумма: Услуги связи");
-        fieldNameByLocator.put(connectionEmailInputBy, "Email: Услуги связи");
-        fieldNameByLocator.put(internetPhoneNumberInputBy, "Номер абонента: Домашний интернет");
-        fieldNameByLocator.put(internetSumInputBy, "Сумма: Домашний интернет");
-        fieldNameByLocator.put(internetEmailInputBy, "Email: Домашний интернет");
-        fieldNameByLocator.put(instalmentScoreInputBy, "Номер счета: Рассрочка");
-        fieldNameByLocator.put(instalmentSumInputBy, "Сумма: Рассрочка");
-        fieldNameByLocator.put(instalmentEmailInputBy, "Email: Рассрочка");
-        fieldNameByLocator.put(scoreArrearsInputBy, "Номер счета: Задолженность");
-        fieldNameByLocator.put(arrearsSumInputBy, "Сумма: Задолженность");
-        fieldNameByLocator.put(arrearsEmailInputBy, "Email: Задолженность");
-        return fieldNameByLocator.get(by);
-    }
-
-    public void actualPlaceholdersFieldInit() {
-        actualPlaceholdersField = new HashMap<>();
-        actualPlaceholdersField.put(connectionPhoneNumberInputBy, "Номер телефона");
-        actualPlaceholdersField.put(connectionSumInputBy, "Сумма");
-        actualPlaceholdersField.put(connectionEmailInputBy, "E-mail для отправки чека");
-        actualPlaceholdersField.put(internetPhoneNumberInputBy, "Номер абонента");
-        actualPlaceholdersField.put(internetSumInputBy, "Сумма");
-        actualPlaceholdersField.put(internetEmailInputBy, "E-mail для отправки чека");
-        actualPlaceholdersField.put(instalmentScoreInputBy, "Номер счета на 44");
-        actualPlaceholdersField.put(instalmentSumInputBy, "Сумма");
-        actualPlaceholdersField.put(instalmentEmailInputBy, "E-mail для отправки чека");
-        actualPlaceholdersField.put(scoreArrearsInputBy, "Номер счета на 2073");
-        actualPlaceholdersField.put(arrearsSumInputBy, "Сумма");
-        actualPlaceholdersField.put(arrearsEmailInputBy, "E-mail для отправки чека");
-    }
-
-
-
-
 }

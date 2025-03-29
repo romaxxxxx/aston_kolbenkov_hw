@@ -33,12 +33,12 @@ public class PayFormPage extends BasePage {
 
     public String getTypeService() {
         String webElementText = getWebElementText(payFormDescriptionText);
-        return payDescriptionSpliterToMap(webElementText).get("Оплата");
+        return payDescriptionSplitterToMap(webElementText).get("Оплата");
     }
 
     public String getPhoneNumber() {
         String webElementText = getWebElementText(payFormDescriptionText);
-        return payDescriptionSpliterToMap(webElementText).get("Номер");
+        return payDescriptionSplitterToMap(webElementText).get("Номер");
     }
 
     public String getPayFormCost() {
@@ -49,7 +49,7 @@ public class PayFormPage extends BasePage {
         return getWebElementText(payFormButtonPayment);
     }
 
-    public Map<String, String> payDescriptionSpliterToMap(String value) {
+    public Map<String, String> payDescriptionSplitterToMap(String value) {
         Map<String, String> map = null;
         if (homePage.serviceType == "Услуги связи") {
             String split[] = value.split(":");
@@ -95,23 +95,23 @@ public class PayFormPage extends BasePage {
     }
 
     public String getVISALableLink() {
-        return getWebElementAttrubuteValue(visaLableBy, "src");
+        return getWebElementAttributeValue(visaLableBy, "src");
     }
 
     public String getMastercardLableLink() {
-        return getWebElementAttrubuteValue(mastercardLableBy, "src");
+        return getWebElementAttributeValue(mastercardLableBy, "src");
     }
 
     public String getBelcartLableLink() {
-        return getWebElementAttrubuteValue(belcartLableBy, "src");
+        return getWebElementAttributeValue(belcartLableBy, "src");
     }
 
     public String getMIRLableLink() {
-        return getWebElementAttrubuteValue(mirLableBy, "src");
+        return getWebElementAttributeValue(mirLableBy, "src");
     }
 
     public String getMaestroLableLink() {
-        return getWebElementAttrubuteValue(maestroLableBy, "src");
+        return getWebElementAttributeValue(maestroLableBy, "src");
     }
 
     public void getHomePageObject(HomePage homePage) {

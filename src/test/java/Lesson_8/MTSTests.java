@@ -1,18 +1,15 @@
 package Lesson_8;
 
+import Lesson_8.Data.PayFieldsInfo;
 import Lesson_8.Pages.CookieAgreePage;
 import Lesson_8.Pages.HomePage;
 import Lesson_8.Pages.PayFormPage;
 import Lesson_8.Pages.ServiceInfoPage;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class MTSTests extends BaseTest {
     static List<String> payPartersLabelsActual = new ArrayList<>(List.of(
@@ -64,38 +61,42 @@ public class MTSTests extends BaseTest {
     }
 
     @Test
-    public static void checkPlaceholdersInPayField() throws InterruptedException {
+    public static void checkPlaceholdersInPayField() {
         HomePage homePage = new HomePage(driver);
 
         new CookieAgreePage(driver)
                 .acceptCookiesOnHomePage();
 
-        Map<By, String> connectionPlaceholders = homePage.getPlaceholdersInput("Услуги связи");
+        List<PayFieldsInfo> connectionPlaceholders = homePage.getPlaceholdersInput("Услуги связи");
 
-        for (Map.Entry<By, String> placeholderInputConnection : connectionPlaceholders.entrySet()) {
-            softAssert.assertEquals(placeholderInputConnection.getValue(), homePage.getActualplaceholder(placeholderInputConnection.getKey()),
-                    "\nНеверный плейсхолдер в поле:" + homePage.getFieldNameByLocator(placeholderInputConnection.getKey()));
+        for (PayFieldsInfo placeholderInputConnection : connectionPlaceholders) {
+            softAssert.assertEquals(placeholderInputConnection.webElementPlaceholderValue,
+                    placeholderInputConnection.actualPlaceholderValue,
+                    "\nНеверный плейсхолдер в поле:" + placeholderInputConnection.fieldName);
         }
 
-        Map<By, String> placeholdersInputInternet = homePage.getPlaceholdersInput("Домашний интернет");
+        List<PayFieldsInfo> placeholdersInputInternet = homePage.getPlaceholdersInput("Домашний интернет");
 
-        for (Map.Entry<By, String> placeholderInputInternet : placeholdersInputInternet.entrySet()) {
-            softAssert.assertEquals(placeholderInputInternet.getValue(), homePage.getActualplaceholder(placeholderInputInternet.getKey()),
-                    "\nНеверный плейсхолдер в поле:" + homePage.getFieldNameByLocator(placeholderInputInternet.getKey()));
+        for (PayFieldsInfo placeholderInputInternet : placeholdersInputInternet) {
+            softAssert.assertEquals(placeholderInputInternet.webElementPlaceholderValue,
+                    placeholderInputInternet.actualPlaceholderValue,
+                    "\nНеверный плейсхолдер в поле:" + placeholderInputInternet.fieldName);
         }
 
-        Map<By, String> placeholdersInputInstalment = homePage.getPlaceholdersInput("Рассрочка");
+        List<PayFieldsInfo> placeholdersInputInstalment = homePage.getPlaceholdersInput("Рассрочка");
 
-        for (Map.Entry<By, String> placeholderInputInstalment : placeholdersInputInstalment.entrySet()) {
-            softAssert.assertEquals(placeholderInputInstalment.getValue(), homePage.getActualplaceholder(placeholderInputInstalment.getKey()),
-                    "\nНеверный плейсхолдер в поле:" + homePage.getFieldNameByLocator(placeholderInputInstalment.getKey()));
+        for (PayFieldsInfo placeholderInputInstalment : placeholdersInputInstalment) {
+            softAssert.assertEquals(placeholderInputInstalment.webElementPlaceholderValue,
+                    placeholderInputInstalment.actualPlaceholderValue,
+                    "\nНеверный плейсхолдер в поле:" + placeholderInputInstalment.fieldName);
         }
 
-        Map<By, String> placeholdersInputArrears = homePage.getPlaceholdersInput("Задолженность");
+        List<PayFieldsInfo> placeholdersInputArrears = homePage.getPlaceholdersInput("Задолженность");
 
-        for (Map.Entry<By, String> placeholderInputArrears : placeholdersInputArrears.entrySet()) {
-            softAssert.assertEquals(placeholderInputArrears.getValue(), homePage.getActualplaceholder(placeholderInputArrears.getKey()),
-                    "\nНеверный плейсхолдер в поле:" + homePage.getFieldNameByLocator(placeholderInputArrears.getKey()));
+        for (PayFieldsInfo placeholderInputArrears : placeholdersInputArrears) {
+            softAssert.assertEquals(placeholderInputArrears.webElementPlaceholderValue,
+                    placeholderInputArrears.actualPlaceholderValue,
+                    "\nНеверный плейсхолдер в поле:" + placeholderInputArrears.fieldName);
         }
         softAssert.assertAll();
     }
@@ -125,28 +126,29 @@ public class MTSTests extends BaseTest {
                 .typeServicesAndCommunicationsPayData("297777777", "asdf@mail.ru", "50")
                 .moveToPayFormPage();
 
-        softAssert.assertEquals(payFormPage.getCVCPlaceholdersName(),"CVC","\nНеверный плейсхолдер в поле CVC");
-        softAssert.assertEquals(payFormPage.getCardNumberPlaceholdersName(),"Номер карты", "\nНеверный плейсхолдер в поле Номер карты");
-        softAssert.assertEquals(payFormPage.getValidityPeriodPlaceholdersName(),"Срок действия", "\nНеверный плейсхолдер в поле Срок дейсвтия");
-        softAssert.assertEquals(payFormPage.getHoldersnamePlaceholdersName(),"Имя держателя (как на карте)", "\nНеверный плейсхолдер в поле Держатель карты");
+        softAssert.assertEquals(payFormPage.getCVCPlaceholdersName(), "CVC", "\nНеверный плейсхолдер в поле CVC");
+        softAssert.assertEquals(payFormPage.getCardNumberPlaceholdersName(), "Номер карты", "\nНеверный плейсхолдер в поле Номер карты");
+        softAssert.assertEquals(payFormPage.getValidityPeriodPlaceholdersName(), "Срок действия", "\nНеверный плейсхолдер в поле Срок дейсвтия");
+        softAssert.assertEquals(payFormPage.getHoldersnamePlaceholdersName(), "Имя держателя (как на карте)", "\nНеверный плейсхолдер в поле Держатель карты");
         softAssert.assertAll();
     }
 
-    @Test static void checkPartnersLabelOnPayForm() throws InterruptedException {
+    @Test
+    static void checkPartnersLabelOnPayForm() throws InterruptedException {
         PayFormPage payFormPage = new CookieAgreePage(driver)
                 .acceptCookiesOnHomePage()
                 .typeServicesAndCommunicationsPayData("297777777", "asdf@mail.ru", "50")
                 .moveToPayFormPage();
 
-        softAssert.assertEquals(payFormPage.getMIRLableLink(),"https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/mir-system-ru.svg",
+        softAssert.assertEquals(payFormPage.getMIRLableLink(), "https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/mir-system-ru.svg",
                 "\nНеверный лейбл у MIR");
-        softAssert.assertEquals(payFormPage.getMaestroLableLink(),"https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/maestro-system.svg",
+        softAssert.assertEquals(payFormPage.getMaestroLableLink(), "https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/maestro-system.svg",
                 "\nНеверный лейбл у Maestro");
-        softAssert.assertEquals(payFormPage.getBelcartLableLink(),"https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/belkart-system.svg",
+        softAssert.assertEquals(payFormPage.getBelcartLableLink(), "https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/belkart-system.svg",
                 "\nНеверный лейбл у Belcart");
-        softAssert.assertEquals(payFormPage.getVISALableLink(),"https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/visa-system.svg",
+        softAssert.assertEquals(payFormPage.getVISALableLink(), "https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/visa-system.svg",
                 "\nНеверный лейбл у VISA");
-        softAssert.assertEquals(payFormPage.getMastercardLableLink(),"https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/mastercard-system.svg",
+        softAssert.assertEquals(payFormPage.getMastercardLableLink(), "https://checkout.bepaid.by/widget_v2/assets/images/payment-icons/card-types/mastercard-system.svg",
                 "\nНеверный лейбл у Mastercard");
         softAssert.assertAll();
     }
