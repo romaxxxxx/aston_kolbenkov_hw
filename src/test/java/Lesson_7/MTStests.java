@@ -31,7 +31,6 @@ public class MTStests {
     static By emailInputBy = By.id("connection-email");
     static By continueButtonBy = By.xpath("//button[text()='Продолжить']");
     static By payPartnersLabelsBy = By.xpath("//div[@class = 'pay__partners']/ul/li/img");
-    static By loaderBy = By.className("loader");
     static By payDataFrameBy = By.className("bepaid-iframe");
     static By payDataForm = By.className("app-wrapper__content");
     static List<String> payPartersLabelsActual = new ArrayList<>(List.of(

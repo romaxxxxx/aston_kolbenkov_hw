@@ -9,34 +9,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomePage extends BasePage {
-    static By paySection = By.id("pay-section");
-    static By paySectionName = By.xpath("//div[contains(@class, 'pay__wrapper')]/h2");
-    static By payPartnersLabelsBy = By.xpath("//div[@class = 'pay__partners']/ul/li/img");
-    static By moreServiceInformationlinkBy = By.xpath("//a[text() = 'Подробнее о сервисе']");
-    static By paySelect = By.id("pay");
-    static By connectionPhoneNumberInputBy = By.id("connection-phone");
-    static By connectionSumInputBy = By.id("connection-sum");
-    static By connectionEmailInputBy = By.id("connection-email");
-    static By internetPhoneNumberInputBy = By.id("internet-phone");
-    static By internetSumInputBy = By.id("internet-sum");
-    static By internetEmailInputBy = By.id("internet-email");
-    static By instalmentScoreInputBy = By.id("score-instalment");
-    static By instalmentSumInputBy = By.id("instalment-sum");
-    static By instalmentEmailInputBy = By.id("instalment-email");
-    static By scoreArrearsInputBy = By.id("score-arrears");
-    static By arrearsSumInputBy = By.id("arrears-sum");
-    static By arrearsEmailInputBy = By.id("arrears-email");
-    static By continueButtonBy = By.xpath("//button[text()='Продолжить']");
-
-
-    public String serviceType;
-    public String connectionPhoneNumberInput;
-    public String connectionSumInput;
-    public String connectionEmailInput;
+    private static final By paySection = By.id("pay-section");
+    private static final By paySectionName = By.xpath("//div[contains(@class, 'pay__wrapper')]/h2");
+    private static final By payPartnersLabelsBy = By.xpath("//div[@class = 'pay__partners']/ul/li/img");
+    private static final By moreServiceInformationlinkBy = By.xpath("//a[text() = 'Подробнее о сервисе']");
+    private static final By paySelect = By.id("pay");
+    private static final By connectionPhoneNumberInputBy = By.id("connection-phone");
+    private static final By connectionSumInputBy = By.id("connection-sum");
+    private static final By connectionEmailInputBy = By.id("connection-email");
+    private static final By internetPhoneNumberInputBy = By.id("internet-phone");
+    private static final By internetSumInputBy = By.id("internet-sum");
+    private static final By internetEmailInputBy = By.id("internet-email");
+    private static final By instalmentScoreInputBy = By.id("score-instalment");
+    private static final By instalmentSumInputBy = By.id("instalment-sum");
+    private static final By instalmentEmailInputBy = By.id("instalment-email");
+    private static final By scoreArrearsInputBy = By.id("score-arrears");
+    private static final By arrearsSumInputBy = By.id("arrears-sum");
+    private static final By arrearsEmailInputBy = By.id("arrears-email");
+    private static final By continueButtonBy = By.xpath("//button[text()='Продолжить']");
+    private String serviceType;
+    private String connectionPhoneNumberInput;
+    private String connectionSumInput;
+    private String connectionEmailInput;
     List<PayFieldsInfo> payFieldsInfo;
 
     public HomePage(WebDriver driver) {
         super(driver);
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public String getConnectionPhoneNumberInput() {
+        return connectionPhoneNumberInput;
+    }
+
+    public String getConnectionSumInput() {
+        return connectionSumInput;
     }
 
     public String getPaySectionName() {
@@ -60,7 +70,7 @@ public class HomePage extends BasePage {
         return new ServiceInfoPage(driver);
     }
 
-    public HomePage selectServiceType(String serviceType) {
+    public HomePage selectServiceType(String serviceType) throws InterruptedException {
         this.serviceType = serviceType;
         selectListElement(paySelect, serviceType);
         return this;
@@ -85,11 +95,11 @@ public class HomePage extends BasePage {
     }
 
     public PayFormPage moveToPayFormPage() throws InterruptedException {
-        click(continueButtonBy);
+        clickBy(continueButtonBy);
         return new PayFormPage(driver);
     }
 
-    public HomePage typeServicesAndCommunicationsPayData(String telephoneNumber, String email, String totalSum) {
+    public HomePage typeServicesAndCommunicationsPayData(String telephoneNumber, String email, String totalSum) throws InterruptedException {
 
         selectServiceType("Услуги связи");
         typeTelephoneNumber(telephoneNumber);
@@ -98,7 +108,7 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public List<PayFieldsInfo> getPlaceholdersInput(String serviceType) {
+    public List<PayFieldsInfo> getPlaceholdersInput(String serviceType) throws InterruptedException {
         payFieldsInfo = new ArrayList<>();
         if (serviceType == "Услуги связи") {
             selectServiceType("Услуги связи");

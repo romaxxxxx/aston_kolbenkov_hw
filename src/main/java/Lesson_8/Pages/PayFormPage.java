@@ -11,20 +11,20 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.frameToBeAvailab
 
 public class PayFormPage extends BasePage {
     HomePage homePage;
-    static By payDataFormBy = By.className("app-wrapper__content");
-    static By payDataFrameBy = By.className("bepaid-iframe");
-    static By payFormCost = By.className("pay-description__cost");
-    static By payFormDescriptionText = By.className("pay-description__text");
-    static By payFormButtonPayment = By.className("pay-description__cost");
-    static By cardNumberPlaceholderBy = By.xpath("//input[@id='cc-number']/..//label");
-    static By validityPeriodPlaceholderBy = By.xpath("//input[@formcontrolname='expirationDate']/..//label");
-    static By cvcPlaceholderBy = By.xpath("//input[@name='verification_value']/../..//label");
-    static By holdersnamePlaceholderBy = By.xpath("//input[@autocomplete='cc-name']/../..//label");
-    static By visaLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[1]");
-    static By mastercardLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[2]");
-    static By belcartLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[3]");
-    static By mirLableBy = By.xpath("//div[contains(@class,'cards-brands_random')]/img[2]");
-    static By maestroLableBy = By.xpath("//div[contains(@class,'cards-brands_random')]/img[1]");
+    private static final By payDataFormBy = By.className("app-wrapper__content");
+    private static final By payDataFrameBy = By.className("bepaid-iframe");
+    private static final By payFormCost = By.className("pay-description__cost");
+    private static final By payFormDescriptionText = By.className("pay-description__text");
+    private static final By payFormButtonPayment = By.className("pay-description__cost");
+    private static final By cardNumberPlaceholderBy = By.xpath("//input[@id='cc-number']/..//label");
+    private static final By validityPeriodPlaceholderBy = By.xpath("//input[@formcontrolname='expirationDate']/..//label");
+    private static final By cvcPlaceholderBy = By.xpath("//input[@name='verification_value']/../..//label");
+    private static final By holdersnamePlaceholderBy = By.xpath("//input[@autocomplete='cc-name']/../..//label");
+    private static final By visaLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[1]");
+    private static final By mastercardLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[2]");
+    private static final By belcartLableBy = By.xpath("//div[contains(@class,'brands__container')]/img[3]");
+    private static final By mirLableBy = By.xpath("//div[contains(@class,'cards-brands_random')]/img[2]");
+    private static final By maestroLableBy = By.xpath("//div[contains(@class,'cards-brands_random')]/img[1]");
 
     public PayFormPage(WebDriver driver) throws InterruptedException {
         super(driver);
@@ -51,7 +51,7 @@ public class PayFormPage extends BasePage {
 
     public Map<String, String> payDescriptionSplitterToMap(String value) {
         Map<String, String> map = null;
-        if (homePage.serviceType == "Услуги связи") {
+        if (homePage.getServiceType() == "Услуги связи") {
             String split[] = value.split(":");
             StringBuilder sb = new StringBuilder();
             int i = 0;
@@ -60,15 +60,15 @@ public class PayFormPage extends BasePage {
                     sb.append("Оплата:");
                     continue;
                 }
-                if (st.contains(homePage.serviceType)) {
-                    sb.append(homePage.serviceType);
+                if (st.contains(homePage.getServiceType())) {
+                    sb.append(homePage.getServiceType());
                 }
                 if (st.contains("Номер")) {
                     sb.append("\nНомер:");
                     continue;
                 }
-                if (st.contains(homePage.connectionPhoneNumberInput)) {
-                    sb.append(homePage.connectionPhoneNumberInput);
+                if (st.contains(homePage.getConnectionPhoneNumberInput())) {
+                    sb.append(homePage.getConnectionPhoneNumberInput());
                 }
             }
             map = Splitter.on("\n")

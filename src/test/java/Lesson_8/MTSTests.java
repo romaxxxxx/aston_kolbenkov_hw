@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class MTSTests extends BaseTest {
     static List<String> payPartersLabelsActual = new ArrayList<>(List.of(
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa.svg",
@@ -19,7 +18,7 @@ public class MTSTests extends BaseTest {
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/mastercard-secure.svg",
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/belkart.svg"));
 
-    @Test()
+    @Test(testName = "checkPaySectionName")
     public static void checkPaySectionName() {
         new CookieAgreePage(driver)
                 .acceptCookiesOnHomePage();
@@ -61,7 +60,7 @@ public class MTSTests extends BaseTest {
     }
 
     @Test
-    public static void checkPlaceholdersInPayField() {
+    public static void checkPlaceholdersInPayField() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
 
         new CookieAgreePage(driver)
@@ -112,10 +111,10 @@ public class MTSTests extends BaseTest {
 
         payFormPage.getHomePageObject(homePage);
 
-        softAssert.assertEquals(payFormPage.getTypeService(), homePage.serviceType, "Неверный тип сервиса");
-        softAssert.assertEquals(payFormPage.getPhoneNumber(), homePage.connectionPhoneNumberInput, "Неверный номер телефона");
-        softAssert.assertTrue(payFormPage.getButtonCost().contains(homePage.connectionSumInput), "Неверная цена на кнопке оплаты");
-        softAssert.assertTrue(payFormPage.getPayFormCost().contains(homePage.connectionSumInput), "Неверная цена на форме оплаты");
+        softAssert.assertEquals(payFormPage.getTypeService(), homePage.getServiceType(), "Неверный тип сервиса");
+        softAssert.assertEquals(payFormPage.getPhoneNumber(), homePage.getConnectionPhoneNumberInput(), "Неверный номер телефона");
+        softAssert.assertTrue(payFormPage.getButtonCost().contains(homePage.getConnectionSumInput()), "Неверная цена на кнопке оплаты");
+        softAssert.assertTrue(payFormPage.getPayFormCost().contains(homePage.getConnectionSumInput()), "Неверная цена на форме оплаты");
         softAssert.assertAll();
     }
 

@@ -1,10 +1,7 @@
 package Lesson_8.Pages;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.frameToBeAvailableAndSwitchToIt;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class BasePage {
     protected WebDriver driver;
@@ -32,11 +29,15 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(elementBy)));
     }
 
+    public void waitVisibility(WebElement webElement) {
+        wait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+
     public void waitTitlePage(String titleName) {
         wait.until(ExpectedConditions.titleContains(titleName));
     }
 
-    public void click(By by) {
+    public void clickBy(By by) {
         moveToElementBy(by);
         waitVisibility(by);
         driver.findElement(by).click();
@@ -67,20 +68,33 @@ public class BasePage {
         return webElementBy(by).getAttribute(attributeName);
     }
 
-    public String getPlaceholder(By by){
+    public String getPlaceholder(By by) {
         return webElementBy(by).getAttribute("placeholder");
     }
 
-    public void selectListElement(By selectFieldBy, String value) {
+    public void selectListElement(By selectFieldBy, String value) throws InterruptedException {
         moveToElementBy(selectFieldBy);
         WebElement selectField = webElementBy(selectFieldBy);
         try {
             selectField.findElement(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
-        } catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             selectField.findElement(By.xpath("./../..")).click();
+            WebElement selectList = selectField.findElement(By.xpath("./../../..//ul[@class = 'select__list']"));
+            waitVisibility(selectList);
             WebElement selectElement = selectField.findElement(By.xpath("./../..//ul/li/p[text()='" + value + "']"));
             moveToElement(selectElement);
-            selectElement.click();
+            for (int i = 0; i < 6; i++) {
+                try {
+                    selectElement.click();
+                } catch (ElementClickInterceptedException ex) {
+                    System.out.println("Попытка ожидания элемента списка: " + i);
+                }
+                Thread.sleep(50);
+                List<WebElement> selectNow = selectField.findElements(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
+                if (selectNow.size() > 0) {
+                    break;
+                }
+            }
         }
     }
 
@@ -93,7 +107,7 @@ public class BasePage {
             try {
                 wait.until(frameToBeAvailableAndSwitchToIt(webElementBy(frameBy)));
             } catch (NoSuchElementException e) {
-                System.out.println("Попытка" + i);
+                System.out.println("Попытка ожидания фрейма :" + i);
             }
             Thread.sleep(5000);
             List<WebElement> frame = webElementsBy(webFormBy);
