@@ -1,5 +1,6 @@
 package Lesson_7;
 
+import Lesson_7.Pages.MainPages;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -10,36 +11,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
+import static Lesson_7.Pages.MainPages.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class MTStests {
-    static WebDriver driver;
-    static WebDriverWait wait;
-    static Actions action;
-    static SoftAssert softAssert;
-    static By cookieAgreeForm = By.className("cookie__wrapper");
-    static By cookieAgreeButtonBy = By.id("cookie-agree");
-    static By paySection = By.id("pay-section");
-    static By paySectionName = By.xpath("//div[contains(@class, 'pay__wrapper')]/h2");
-    static By paySelect = By.id("pay");
-    static By moreServiceInformationlinkBy = By.xpath("//a[text() = 'Подробнее о сервисе']");
-    static By telephoneNumberInputBy = By.id("connection-phone");
-    static By totalSumInputBy = By.id("connection-sum");
-    static By emailInputBy = By.id("connection-email");
-    static By continueButtonBy = By.xpath("//button[text()='Продолжить']");
-    static By payPartnersLabelsBy = By.xpath("//div[@class = 'pay__partners']/ul/li/img");
-    static By loaderBy = By.className("loader");
-    static By payDataFrameBy = By.className("bepaid-iframe");
-    static By payDataForm = By.className("app-wrapper__content");
-    static List<String> payPartersLabelsActual = new ArrayList<>(List.of(
-            "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa.svg",
-            "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa-verified.svg",
-            "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/mastercard.svg",
-            "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/mastercard-secure.svg",
-            "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/belkart.svg"));
+    private static WebDriver driver;
+    private static WebDriverWait wait;
+    private static  Actions action;
+    private static  SoftAssert softAssert;
+    private static MainPages mainPage;
 
     @BeforeMethod
     public static void setUp() {
@@ -50,34 +32,34 @@ public class MTStests {
         action = new Actions(driver);
         softAssert = new SoftAssert();
         driver.get("https://www.mts.by/");
-
+        mainPage = new MainPages(driver);
     }
 
     @Test()
     public static void checkPaySectionName() {
-        WebElement cookieAgreeButton = driver.findElement(cookieAgreeButtonBy);
+        WebElement cookieAgreeButton = driver.findElement(getCookieAgreeButtonBy());
         if (cookieAgreeButton.isDisplayed()) {
             cookieAgreeButton.click();
         }
-        WebElement paySectionForm = driver.findElement(paySection);
+        WebElement paySectionForm = driver.findElement(getPaySection());
         action.moveToElement(paySectionForm).perform();
-        String paySectionNameText = paySectionForm.findElement(paySectionName).getText();
+        String paySectionNameText = paySectionForm.findElement(getPaySectionName()).getText();
         Assert.assertEquals(paySectionNameText, "Онлайн пополнение\nбез комиссии");
     }
 
     @Test()
     public static void checkPayPartnersLabel() {
-        WebElement cookieAgreeButton = driver.findElement(cookieAgreeButtonBy);
+        WebElement cookieAgreeButton = driver.findElement(getCookieAgreeButtonBy());
         if (cookieAgreeButton.isDisplayed()) {
             cookieAgreeButton.click();
         }
-        WebElement paySectionForm = driver.findElement(paySection);
+        WebElement paySectionForm = driver.findElement(getPaySection());
         action.moveToElement(paySectionForm).perform();
-        List<WebElement> payPartnersLabels = driver.findElements(payPartnersLabelsBy);
+        List<WebElement> payPartnersLabels = driver.findElements(getPayPartnersLabelsBy());
         int i = 0;
         for (WebElement payPartnerLabel : payPartnersLabels) {
-            softAssert.assertEquals(payPartnerLabel.getAttribute("src"), payPartersLabelsActual.get(i),
-                    "\nНеверное изображение лейбла:" + payPartersLabelsActual.get(i));
+            softAssert.assertEquals(payPartnerLabel.getAttribute("src"), getPayPartersLabelsActual().get(i),
+                    "\nНеверное изображение лейбла:" + getPayPartersLabelsActual().get(i));
             i++;
         }
         softAssert.assertAll();
@@ -85,13 +67,13 @@ public class MTStests {
 
     @Test
     public static void checkServiceInformationLink() {
-        WebElement cookieAgreeButton = driver.findElement(cookieAgreeButtonBy);
+        WebElement cookieAgreeButton = driver.findElement(getCookieAgreeButtonBy());
         if (cookieAgreeButton.isDisplayed()) {
             cookieAgreeButton.click();
         }
-        WebElement paySectionForm = driver.findElement(paySection);
+        WebElement paySectionForm = driver.findElement(getPaySection());
         action.moveToElement(paySectionForm).perform();
-        WebElement moreServiceInformationlink = paySectionForm.findElement(moreServiceInformationlinkBy);
+        WebElement moreServiceInformationlink = paySectionForm.findElement(getMoreServiceInformationlinkBy());
         moreServiceInformationlink.click();
         Assert.assertNotNull(wait.until(titleContains("Порядок оплаты и безопасность интернет платежей")),
                 "Страница с информацие о сервисе не открывается");
@@ -99,40 +81,33 @@ public class MTStests {
 
     @Test
     public static void checkContinueButton() {
-        WebElement cookieAgreeButton = driver.findElement(cookieAgreeButtonBy);
+        WebElement cookieAgreeButton = driver.findElement(getCookieAgreeButtonBy());
         if (cookieAgreeButton.isDisplayed()) {
             cookieAgreeButton.click();
         }
-        WebElement paySectionForm = driver.findElement(paySection);
+        WebElement paySectionForm = driver.findElement(getPaySection());
         action.moveToElement(paySectionForm).perform();
-        selectListValue(paySelect, "Услуги связи");
-        WebElement telephoneNumberInput = driver.findElement(telephoneNumberInputBy);
+        selectListValue(getPaySelect(), "Услуги связи");
+        WebElement telephoneNumberInput = driver.findElement(getTelephoneNumberInputBy());
         telephoneNumberInput.sendKeys("297777777");
-        WebElement totalSumInput = driver.findElement(totalSumInputBy);
+        WebElement totalSumInput = driver.findElement(getTotalSumInputBy());
         totalSumInput.sendKeys("50");
-        WebElement emailInput = driver.findElement(emailInputBy);
+        WebElement emailInput = driver.findElement(getEmailInputBy());
         emailInput.sendKeys("asdf@mail.ru");
-        WebElement continueButton = driver.findElement(continueButtonBy);
+        WebElement continueButton = driver.findElement(getContinueButtonBy());
         continueButton.click();
-        wait.until(visibilityOfElementLocated(loaderBy));
-        wait.until(invisibilityOf(driver.findElement(loaderBy)));
-        wait.until(frameToBeAvailableAndSwitchToIt(driver.findElement(payDataFrameBy)));
-        Assert.assertNotNull(wait.until(visibilityOf(driver.findElement(payDataForm))),
+        wait.until(visibilityOfElementLocated(getLoaderBy()));
+        wait.until(invisibilityOf(driver.findElement(getLoaderBy())));
+        wait.until(frameToBeAvailableAndSwitchToIt(driver.findElement(getPayDataFrameBy())));
+        Assert.assertNotNull(wait.until(visibilityOf(driver.findElement(getPayDataForm()))),
                 "Форма для ввода данных по оплате не открывается");
     }
 
     @AfterMethod
     public static void tearDown() {
-        driver.close();
+        driver.manage().deleteAllCookies();
+        driver.quit();
     }
 
-    static void selectListValue(By by, String value) {
-        WebElement selectField = driver.findElement(by);
-        List<WebElement> selectedCurrentValue = selectField.findElements(By.xpath("./../..//span[@class = 'select__now' and text() = '" + value + "']"));
-        if (selectedCurrentValue.size() == 0) {
-            selectField.findElement(By.xpath("./../..")).click();
-            WebElement selectElement = selectField.findElement(By.xpath("./../..//ul/li/p[text()='" + value + "']"));
-            selectElement.click();
-        }
-    }
+
 }
