@@ -5,11 +5,13 @@ import Lesson_8.Pages.CookieAgreePage;
 import Lesson_8.Pages.HomePage;
 import Lesson_8.Pages.PayFormPage;
 import Lesson_8.Pages.ServiceInfoPage;
+import io.qameta.allure.Epic;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class MTSTests extends BaseTest {
     static List<String> payPartersLabelsActual = new ArrayList<>(List.of(
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa.svg",
@@ -18,6 +20,7 @@ public class MTSTests extends BaseTest {
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/mastercard-secure.svg",
             "https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/belkart.svg"));
 
+    @Epic("Тесты секции онлайн платежей")
     @Test(testName = "checkPaySectionName")
     public static void checkPaySectionName() {
         new CookieAgreePage(driver)
@@ -25,7 +28,7 @@ public class MTSTests extends BaseTest {
 
         Assert.assertEquals(new HomePage(driver).getPaySectionName(), "Онлайн пополнение\nбез комиссии");
     }
-
+    @Epic("Тесты секции онлайн платежей")
     @Test()
     public static void checkPayPartnersLabel() {
         new CookieAgreePage(driver)
@@ -39,16 +42,16 @@ public class MTSTests extends BaseTest {
         }
         softAssert.assertAll();
     }
-
+    @Epic("Тесты секции онлайн платежей")
     @Test()
     public static void checkServiceInfoLink() {
         ServiceInfoPage serviceInfoPage = new CookieAgreePage(driver)
                 .acceptCookiesOnHomePage()
                 .moveToServiceInfoPage();
 
-        Assert.assertNotNull(serviceInfoPage, "Страница с информацие о сервисе не открывается");
+        Assert.assertNotNull(serviceInfoPage, "Страница с информацией о сервисе не открывается");
     }
-
+    @Epic("Тесты секции онлайн платежей")
     @Test
     public static void checkContinueButton() throws InterruptedException {
         PayFormPage PayForm = new CookieAgreePage(driver)
@@ -58,7 +61,7 @@ public class MTSTests extends BaseTest {
 
         Assert.assertNotNull(PayForm, "Форма для ввода данных по оплате не открывается");
     }
-
+    @Epic("Тесты секции онлайн платежей")
     @Test
     public static void checkPlaceholdersInPayField() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
@@ -99,7 +102,7 @@ public class MTSTests extends BaseTest {
         }
         softAssert.assertAll();
     }
-
+    @Epic("Тесты формы оплаты услуги")
     @Test
     public static void checkPayDataForm() throws InterruptedException {
         HomePage homePage = new CookieAgreePage(driver)
@@ -117,7 +120,7 @@ public class MTSTests extends BaseTest {
         softAssert.assertTrue(payFormPage.getPayFormCost().contains(homePage.getConnectionSumInput()), "Неверная цена на форме оплаты");
         softAssert.assertAll();
     }
-
+    @Epic("Тесты формы оплаты услуги")
     @Test
     public static void checkPayFormPlaceholders() throws InterruptedException {
         PayFormPage payFormPage = new CookieAgreePage(driver)
@@ -131,7 +134,7 @@ public class MTSTests extends BaseTest {
         softAssert.assertEquals(payFormPage.getHoldersnamePlaceholdersName(), "Имя держателя (как на карте)", "\nНеверный плейсхолдер в поле Держатель карты");
         softAssert.assertAll();
     }
-
+    @Epic("Тесты формы оплаты услуги")
     @Test
     static void checkPartnersLabelOnPayForm() throws InterruptedException {
         PayFormPage payFormPage = new CookieAgreePage(driver)
